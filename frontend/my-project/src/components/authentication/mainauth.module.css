@@ -1,0 +1,69 @@
+
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 254, 234, 1) 35%,
+    #B7E8EB 100%
+  );
+  overscroll-behavior: none;
+}
+
+
+.authWrapper {
+  position: relative;
+  min-height: 100svh; /* ✅ mobile-safe viewport */
+  overflow: hidden;
+}
+
+
+
+
+
+
+
+/* Ocean Animation */
+.ocean {
+  position: fixed;
+  height: 90px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #015871;
+  z-index: -1;
+
+}
+
+.wave {
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg") repeat-x;
+  position: absolute;
+  top: -198px;
+  width: 6400px;
+  height: 198px;
+  animation: wave 5s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+}
+
+.wave:nth-of-type(2) {
+  top: -175px;
+  animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite,
+             swell 7s ease infinite;
+}
+
+@keyframes wave {
+  0% { margin-left: 0; }
+  100% { margin-left: -1600px; }
+}
+
+@keyframes swell {
+  0%, 100% { transform: translateY(-25px); }
+  50% { transform: translateY(5px); }
+}

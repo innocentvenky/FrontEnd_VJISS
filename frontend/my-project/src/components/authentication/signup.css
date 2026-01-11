@@ -1,0 +1,147 @@
+/* Container */
+.signup-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px; /* slightly smaller padding */
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Form title */
+.signup-form .title {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 20px;
+}
+
+/* Name fields (first + last) */
+.name-fields {
+  display: flex;
+  gap: 8px; /* reduced gap */
+  margin-bottom: 12px; /* reduced spacing below */
+}
+
+/* Input wrapper with icon */
+.input-wrapper {
+  position: relative;
+  margin-bottom: 12px; /* reduced spacing */
+}
+
+.input-wrapper i {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 14px;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 8px 10px 8px 30px; /* smaller height */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 13px; /* slightly smaller font */
+  outline: none;
+}
+
+.input-wrapper input:focus {
+  border-color: #4CAF50;
+}
+
+/* OTP field */
+.otp-field {
+  display: flex;
+  gap: 6px; /* reduced gap */
+  margin-bottom: 12px;
+}
+
+.otp-field input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+.otp-btn {
+  padding: 8px 12px; /* smaller button */
+ background: #077077;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.otp-btn:hover {
+   background: #077077;
+  
+}
+
+/* Gender radio buttons */
+.gender-container {
+  display: flex;
+  gap: 10px; /* slightly reduced gap */
+  margin-bottom: 12px;
+}
+
+.gender-container label {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 13px;
+}
+
+/* Submit button */
+.submit-btn {
+  width: 100%;
+  padding: 10px; /* slightly smaller */
+   background: #077077;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.submit-btn:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+/* Switch to login */
+.switch-login {
+  text-align: center;
+  margin-top: 12px; /* reduced margin */
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.switch-login b {
+  color: #6ca6dd;
+}
+
+
+.loginText {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #555;
+}
+
+.loginLink {
+  color: #077077;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.loginLink:hover {
+  text-decoration: underline;
+}
