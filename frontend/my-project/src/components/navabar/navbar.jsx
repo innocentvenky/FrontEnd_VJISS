@@ -37,7 +37,7 @@ const Navbar = () => {
     <li className={location.pathname === "/services" ? "active" : ""} onClick={() => goTo("/services")}>New Batch</li>
   <li className={location.pathname === "/jobnotifications" ? "active" : ""} onClick={() => goTo("/jobnotifications")}>Job Notifications</li>
   <li className={location.pathname === "/trainers" ? "active" : ""} onClick={() => goTo("/trainers")}>Trainers Info</li>
-  <li className={location.pathname === "/about" ? "active" : ""} onClick={() => goTo("/about")}>Contact</li>
+  <li className={location.pathname === "/about" ? "active" : ""} onClick={() => goTo("/about")}>About</li>
 
   <li>
     <button

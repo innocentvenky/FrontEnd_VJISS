@@ -1,0 +1,173 @@
+/* Container: Full screen center */
+.container {
+  display: flex;
+  justify-content: center; /* horizontal center */
+  align-items: center;     /* vertical center */
+  height: 80vh;           /* full viewport height */
+  width: 120vw;
+ background: transparent;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.card {
+  background: transparent;
+  padding: 40px 30px;
+  border-radius: 20px;
+  width: 380px;
+  max-width: 90%;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+
+/* Title */
+.title {
+  font-size: 22px;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* Input wrappers */
+.inputWrapper,
+.otpWrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.inputWrapper input,
+.otpWrapper input {
+
+
+min-width: 0;
+
+
+
+  flex: 1;
+  padding: 12px 40px 12px 40px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.inputWrapper input:focus,
+.otpWrapper input:focus {
+  border-color: #66a6ff;
+  box-shadow: 0 0 8px rgba(102, 166, 255, 0.3);
+}
+
+/* Icons inside input */
+.leftIcon {
+  position: absolute;
+  left: 12px;
+  font-size: 16px;
+  color: #888;
+}
+
+.rightIcon {
+  position: absolute;
+  right: 12px;
+  font-size: 16px;
+  color: #888;
+  cursor: pointer;
+}
+
+
+.otpWrapper button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 12px;      /* slightly smaller */
+  font-size: 12px;
+  border-radius: 10px;
+  border: none;
+
+  background-color: #66a6ff;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+
+  min-width: 72px;         /* smaller on mobile */
+  white-space: nowrap;
+}
+
+
+
+.otpWrapper button:hover:not(:disabled) {
+  background-color: #558de8;
+}
+
+.otpWrapper button:disabled {
+  background-color: #b3cfff;
+  cursor: not-allowed;
+}
+
+/* Submit button */
+.submitBtn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 12px;
+background: #077077; 
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submitBtn:hover {
+  background: linear-gradient(135deg, #558de8, #78e5f7);
+}
+
+/* Back link */
+.backText {
+  margin-top: 18px;
+  font-size: 14px;
+  color: #000808f3;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.backText:hover {
+  color: #558de8;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .card {
+    padding: 30px 20px;
+  }
+
+  .inputWrapper input,
+  .otpWrapper input {
+    padding: 10px 35px 10px 35px;
+  }
+
+  .otpWrapper button {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .submitBtn {
+    font-size: 15px;
+  }
+}
+
+
+@media (max-width: 420px) {
+  .otpWrapper {
+    gap: 6px;
+  }
+
+  .otpWrapper button {
+    font-size: 11px;
+    padding: 8px 10px;
+    min-width: 64px;
+  }
+}

@@ -2,7 +2,7 @@ import React, { useState,useRef } from "react";
 import axios from "axios";
 import {AuthContext} from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import "./signin.css";
+import styles from "./signin.module.css";
 
 
 
@@ -17,7 +17,7 @@ const PasswordInput = ({
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="input-field">
+    <div className={styles.inputfield}>
       <i className="fas fa-lock"></i>
 
       <input
@@ -32,7 +32,7 @@ const PasswordInput = ({
       <i
         className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
         onClick={() => setShowPassword(!showPassword)}
-        id="eye-icon"
+        id={styles.eyeicon}
       ></i>
     </div>
   );
@@ -51,7 +51,7 @@ const PasswordInput = ({
 
 
 
-const SignIN = ({goToSignup}) => {
+const SignIN = ({goToSignup,goToForgot}) => {
 
 
 const [isRightPanelActive, setIsRightPanelActive] = useState(false);
@@ -336,16 +336,17 @@ const handleSignUpSubmit = async (e) => {
   return (
     <>
 
-    
-      <div className="main">
+
+
+      <div className={styles.main}>
       {/* LOGIN Form */}
-                <form onSubmit={handleSignInSubmit} className="sign-in-form">
-                  <h1 className="main_title">VJISS Pvt Ltd.</h1>
-  <h2 className="title">Sign in</h2>
+                <form onSubmit={handleSignInSubmit} className={styles.signform}>
+                  <h1 className={styles.main_title}>VJISS </h1>
+  <h2 className={styles.title}>Sign in</h2>
 
   
     <>
-      <div className="input-field">
+      <div className={styles.inputfield}>
         <i className="fas fa-envelope"></i>
         <input
           type="email"
@@ -391,6 +392,8 @@ const handleSignUpSubmit = async (e) => {
     setSignupOtpSent(false);
     setOtpSent(false);
     setOtpExpired(false);
+    
+    goToForgot();
   }}
 >
   Forgot password?
@@ -400,12 +403,12 @@ const handleSignUpSubmit = async (e) => {
       <input
         type="submit"
         value={loader ? "..." : "Login"}
-        className="login-btn"
+        className={styles["login-btn"]}
         disabled={loader}
       />
- <p className={"signupText"}>
+ <p className={styles.signupText}>
   If you don&apos;t have an account?{" "}
-  <span className={"signupLink"} onClick={goToSignup}>
+  <span className={styles.signupLink} onClick={goToSignup}>
     Sign Up
   </span>
 </p>

@@ -22,6 +22,7 @@ body {
   position: relative;
   min-height: 100svh; /* ✅ mobile-safe viewport */
   overflow: hidden;
+  display:flex;
 }
 
 

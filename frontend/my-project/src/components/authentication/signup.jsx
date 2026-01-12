@@ -224,6 +224,7 @@ const handleSignUpSubmit = async (e) => {
   return (
     <div className="signup-container">
       <form className="signup-form" onSubmit={ handleSignUpSubmit}>
+        <h2 className="VJISS">VJISS</h2>
         <h2 className="title">Sign Up</h2>
 
         {/* Name Fields */}
@@ -269,7 +270,8 @@ const handleSignUpSubmit = async (e) => {
          {errors.email && <p className="error-text">{errors.email}</p>}
 
         {/* OTP Field */}
-        <div className="otp-field">
+        <div className="otp-field input-wrapper">
+            <i className="fas fa-shield-alt"></i>
   <input
     type="text"
     name="otp"
@@ -371,7 +373,7 @@ const handleSignUpSubmit = async (e) => {
 
         {/* Back to Login */}
          <p className={"loginText"}>
-  If you don&apos;t have an account?{" "}
+  If you already have an account ?  {" "}
   <span className={"loginLink"} onClick={onSwitchToLogin}>
     Log In
   </span>

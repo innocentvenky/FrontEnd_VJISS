@@ -11,6 +11,7 @@ import "./courses.css";
 -------------------------------- */
 const COURSE_ACTIONS = {
   user: ["enroll", "details"],
+  staff: ["enroll", "details", "edit", "delete"],
   admin: ["enroll", "details", "edit", "delete"],
 };
 
@@ -22,12 +23,11 @@ const Courses = () => {
   const { token, logout, is_superuser,is_staff } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const role =
-  is_superuser === true
-    ? "admin"
-    : is_staff === true
-    ? "staff"
-    : "user";
+const role = is_superuser
+  ? "admin"
+  : is_staff
+  ? "staff"
+  : "user";
 
 
   /* -------------------------------
@@ -40,7 +40,7 @@ const Courses = () => {
         navigate("/login");
         return;
       }
-
+console.log(is_superuser)
       try {
         setLoading(true);
         setError("");
@@ -105,7 +105,8 @@ const Courses = () => {
     <>
       <Navbar />
 
-      <section className="courses-section">
+     <section className={`courses-section ${is_superuser ? "admin-view" : ""}`}>
+
         <div className="courses-grid">
           {courses.length === 0 ? (
             <p>No courses available</p>
@@ -162,8 +163,19 @@ const Courses = () => {
           )}
         </div>
       </section>
+                                  {/* ➕ ADD TRAINER BUTTON */}
 
-      {is_superuser && <CourseWithSyllabusForm />}
+
+      {is_superuser &&                    
+<div className="add-trainer-wrapper">
+  <button
+    className="add-trainer-btn"
+    onClick={() => navigate("/courses_create")}
+    title="Add New Trainer"
+  >
+    +
+  </button>
+</div>}
     </>
   );
 };

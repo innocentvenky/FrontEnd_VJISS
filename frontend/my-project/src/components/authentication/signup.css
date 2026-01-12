@@ -4,10 +4,11 @@
   max-width: 400px;
   margin: 50px auto;
   padding: 20px; /* slightly smaller padding */
-  background: #fff;
+  background:transparent;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.08);
   font-family: 'Arial', sans-serif;
+  height: 500px;
 }
 
 /* Form title */
@@ -44,7 +45,7 @@
   width: 100%;
   padding: 8px 10px 8px 30px; /* smaller height */
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 30px;
   font-size: 13px; /* slightly smaller font */
   outline: none;
 }
@@ -62,18 +63,18 @@
 
 .otp-field input {
   flex: 1;
-  padding: 8px;
+  padding: 8px 10px 8px 30px; 
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 15px;
   font-size: 13px;
 }
 
 .otp-btn {
   padding: 8px 12px; /* smaller button */
- background: #077077;
+ background: #087f88;
   color: #ffffff;
   border: none;
-  border-radius: 5px;
+  border-radius: 30px;
   cursor: pointer;
   font-size: 13px;
   font-weight: bold;
@@ -105,7 +106,7 @@
    background: #077077;
   color: #ffffff;
   border: none;
-  border-radius: 6px;
+  border-radius: 30px;
   font-size: 14px;
   cursor: pointer;
   font-weight: bold;
@@ -130,18 +131,33 @@
 
 
 .loginText {
-  margin-top: 16px;
+  margin-top: 15px;
   font-size: 14px;
-  color: #555;
+  color: #85b5da;
 }
 
 .loginLink {
-  color: #077077;
+   color: #eaf0f1f3;
+   font-size: medium;
   font-weight: 600;
   cursor: pointer;
-  margin-left: 4px;
 }
 
 .loginLink:hover {
   text-decoration: underline;
+}
+.VJISS {
+ font-size: 34px;
+  font-weight: 550;
+  margin-bottom: 8px;
+
+  font-family: 'Silver Editorial Italic';
+
+  /* Gradient text */
+  background: linear-gradient(179deg, #bfbd7f, #1bacbb, #392e05, #797770, #917420);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
 }
