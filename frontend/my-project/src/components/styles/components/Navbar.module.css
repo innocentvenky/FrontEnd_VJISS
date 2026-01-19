@@ -1,0 +1,101 @@
+.navbar {
+  height: 70px;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* Logo stays left */
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: #2563eb;
+}
+
+/* Everything pushed to right */
+.rightSection {
+  margin-left: auto; /* 🔑 MAGIC LINE */
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+/* Nav links */
+.navLinks {
+  list-style: none;
+  display: flex;
+  gap: 26px;
+  margin: 0;
+  padding: 0;
+}
+
+.navLinks a {
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.navLinks a:hover {
+  color: #2563eb;
+}
+
+/* Buttons */
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+.login {
+  background: transparent;
+  border: none;
+  color: #2563eb;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.signup {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.link {
+  position: relative;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: #0f172a;
+  padding: 6px 0;
+}
+
+/* underline animation */
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #2563eb;
+  transition: width 0.3s ease;
+}
+
+/* hover */
+.link:hover::after {
+  width: 100%;
+}
+
+/* active page */
+.active {
+  color: #2563eb;
+}
+
+.active::after {
+  width: 100%;
+}

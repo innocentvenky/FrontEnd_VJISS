@@ -1,0 +1,148 @@
+/* ================= PAGE ================= */
+.container {
+  max-width: 1300px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #f8fafc;
+  font-family: "Inter", sans-serif;
+}
+
+.pageTitle {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+/* ================= GRID ================= */
+.batchGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+/* ================= CARD ================= */
+.batchCard {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.batchCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* ================= TEXT ================= */
+.courseName {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 12px;
+}
+
+.batchCard p {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #4b5563;
+}
+
+/* ================= STATUS ================= */
+.status {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.started {
+  background: #e0f2fe;
+  color: #2563eb;
+}
+
+.upcoming {
+  background: #fef3c7;
+  color: #ca8a04;
+}
+
+.completed {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/* ================= ACTIONS ================= */
+.actions {
+  margin-top: 16px;
+}
+
+.enrollBtn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.enrollBtn:hover {
+  background: #1e40af;
+}
+
+.enrolledBtn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #9ca3af;
+  color: white;
+  cursor: not-allowed;
+}
+
+/* ================= STATES ================= */
+.loading,
+.error,
+.empty {
+  text-align: center;
+  padding: 40px;
+  font-size: 16px;
+  color: #6b7280;
+}
+
+/* ================= TABLET ================= */
+@media (max-width: 1024px) {
+  .batchGrid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 640px) {
+  .container {
+    padding: 15px;
+  }
+
+  .pageTitle {
+    font-size: 22px;
+  }
+
+  .batchCard {
+    padding: 16px;
+  }
+
+  .courseName {
+    font-size: 16px;
+  }
+
+  .enrollBtn,
+  .enrolledBtn {
+    font-size: 14px;
+  }
+}

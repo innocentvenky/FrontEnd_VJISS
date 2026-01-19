@@ -2,58 +2,39 @@ import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../apis/api";
 import { AuthContext } from "../contexts/AuthContext";
+import { CourseContext } from "../contexts/enrollContext";
 import Navbar from "../navabar/navbar";
-import CourseWithSyllabusForm from "./create_course";
-import "./courses.css";
-
-/* -------------------------------
-   Role Based Action Config
--------------------------------- */
-const COURSE_ACTIONS = {
-  user: ["enroll", "details"],
-  staff: ["enroll", "details", "edit", "delete"],
-  admin: ["enroll", "details", "edit", "delete"],
-};
+import EnrollButton from "./EnrollButton";
+import styles from "./courses.module.css";
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [showApplied, setShowApplied] = useState(false);
 
-  const { token, logout, is_superuser,is_staff } = useContext(AuthContext);
+  const { token, logout } = useContext(AuthContext);
+  const { enrollments } = useContext(CourseContext);
+  console.log(enrollments)
+
   const navigate = useNavigate();
 
-const role = is_superuser
-  ? "admin"
-  : is_staff
-  ? "staff"
-  : "user";
-
-
-  /* -------------------------------
+  /* --------------------------------
      Fetch Courses
   -------------------------------- */
   useEffect(() => {
-    const fetchCourses = async () => {
-      if (!token) {
-        logout();
-        navigate("/login");
-        return;
-      }
-console.log(is_superuser)
-      try {
-        setLoading(true);
-        setError("");
+    if (!token) {
+      logout();
+      navigate("/login");
+      return;
+    }
 
+    const fetchCourses = async () => {
+      try {
         const { data } = await api.get("/VJISS/course_details/");
         setCourses(Array.isArray(data) ? data : []);
       } catch (err) {
-        if (err.response?.status === 401) {
-          logout();
-          navigate("/login");
-        } else {
-          setError("Failed to load courses. Please try again later.");
-        }
+        setError("Failed to load courses");
       } finally {
         setLoading(false);
       }
@@ -62,120 +43,93 @@ console.log(is_superuser)
     fetchCourses();
   }, [token, logout, navigate]);
 
-  /* -------------------------------
-     Action Handler (Centralized)
-  -------------------------------- */
-  const handleAction = (action, courseId) => {
-    switch (action) {
-      case "enroll":
-        console.log("Enroll:", courseId);
-        break;
-
-      case "details":
-        navigate(`/courses/${courseId}`);
-        break;
-
-      case "edit":
-        navigate(`/courses/edit/${courseId}`);
-        break;
-
-      case "delete":
-        if (window.confirm("Are you sure you want to delete this course?")) {
-          console.log("Delete:", courseId);
-        }
-        break;
-
-      default:
-        return;
-    }
-  };
-
-  /* -------------------------------
-     UI States
-  -------------------------------- */
-  if (loading) {
-    return <div className="courses-section">Loading courses...</div>;
-  }
-
-  if (error) {
-    return <div className="courses-section error">{error}</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div className={styles.error}>{error}</div>;
 
   return (
     <>
       <Navbar />
 
-     <section className={`courses-section ${is_superuser ? "admin-view" : ""}`}>
+      {/* -------------------------------
+         My Applications
+      -------------------------------- */}
+      <div className={styles.appliedSection}>
+        <div
+          className={styles.appliedHeader}
+          onClick={() => setShowApplied(!showApplied)}
+        >
+          <h2>My Applications</h2>
+          <span>{showApplied ? "▲" : "▼"}</span>
+        </div>
 
-        <div className="courses-grid">
-          {courses.length === 0 ? (
-            <p>No courses available</p>
-          ) : (
-            courses.map((course) => (
-              <div className="course-card" key={course.course_id}>
-                <img
-                  src={course.course_logo}
-                  alt={course.course_name}
-                  className="course-logo"
-                />
-
-                <div className="course-header">
-                  <h3>{course.course_name}</h3>
-                  <span
-                    className={`level-badge ${course.course_level.toLowerCase()}`}
-                  >
-                    {course.course_level}
-                  </span>
-                </div>
-
-                <div className="course-meta">
-                  <span className="course-duration">
-                    ⏱ <strong>{course.course_duration}</strong>
-                    <span className="duration-text"> MONTHS</span>
-                  </span>
-                </div>
-
-                <p className="course-description">
-                  {course.course_description}
-                </p>
-
-                {/* ---------- Actions ---------- */}
+        {showApplied && (
+          <div className={styles.appliedList}>
+            {enrollments.length === 0 ? (
+              <p>No applications found</p>
+            ) : (
+              enrollments.map((item) => (
                 <div
-                  className="course-actions"
-                  role="group"
-                  aria-label="Course actions"
+                  key={item.enrollment_id}
+                  className={styles.appliedCard}
                 >
-                  {COURSE_ACTIONS[role].map((action) => (
-                    <button
-                      key={action}
-                      type="button"
-                      className={`action-btn ${action}`}
-                      onClick={() =>
-                        handleAction(action, course.course_id)
-                      }
-                    >
-                      {action.toUpperCase()}
-                    </button>
-                  ))}
+                  <h3>{item.course.course_name}</h3>
+                  <p>
+                    <strong>Level:</strong>{" "}
+                    {item.course.course_level}
+                  </p>
+                  <p>
+                    <strong>Applied On:</strong>{" "}
+                    {item.enrollment_date}
+                  </p>
+                  <span
+                    className={`${styles.status} ${
+                      styles[item.status.toLowerCase()]
+                    }`}
+                  >
+                    {item.status}
+                  </span>
                 </div>
+              ))
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* -------------------------------
+         Courses List
+      -------------------------------- */}
+      <section className={styles["courses-section"]}>
+        <div className={styles["courses-grid"]}>
+          {courses.map((course) => (
+            <div
+              key={course.course_id}
+              className={styles["course-card"]}
+            >
+              <img
+                src={course.course_logo}
+                alt={course.course_name}
+                className={styles["course-logo"]}
+              />
+
+              <h3>{course.course_name}</h3>
+              <p>{course.course_description}</p>
+
+              <div className={styles["course-actions"]}>
+                <EnrollButton courseId={course.course_id} />
+
+                <button
+                  className={`${styles["action-btn"]} ${styles.details}`}
+                  onClick={() =>
+                    navigate(`/course/${course.course_id}`)
+                  }
+                >
+                  DETAILS
+                </button>
               </div>
-            ))
-          )}
+            </div>
+          ))}
         </div>
       </section>
-                                  {/* ➕ ADD TRAINER BUTTON */}
-
-
-      {is_superuser &&                    
-<div className="add-trainer-wrapper">
-  <button
-    className="add-trainer-btn"
-    onClick={() => navigate("/courses_create")}
-    title="Add New Trainer"
-  >
-    +
-  </button>
-</div>}
     </>
   );
 };

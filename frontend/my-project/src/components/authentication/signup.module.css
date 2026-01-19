@@ -1,0 +1,183 @@
+/* Container */
+.signupContainer {
+  width: 100%;
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background: transparent;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  font-family: Arial, sans-serif;
+  height: 500px;
+}
+
+/* Form title */
+.title {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 20px;
+}
+
+/* Name fields */
+.nameFields {
+  display: flex;
+  gap: 28px;
+  margin: 1px;
+  width: 93%;
+  
+}
+
+/* Input wrapper */
+.inputWrapper {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.inputWrapper i {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 14px;
+}
+
+.inputWrapper input {
+  width: 90%;
+  padding: 8px 10px 8px 30px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  font-size: 13px;
+  outline: none;
+}
+
+.inputWrapper input:focus {
+  border-color: #4caf50;
+}
+
+/* OTP field */
+.otpField {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.otpField input {
+  flex: 1;
+  padding: 8px 10px 8px 30px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  font-size: 13px;
+}
+
+/* OTP Button */
+.otpBtn {
+  padding: 8px 12px;
+  width: 100px;
+  background: #0acfdd;
+  color: #ffffff;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.otpBtn:hover {
+  background: #077077;
+}
+
+/* Gender */
+.genderContainer {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.genderLabel {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 13px;
+}
+
+/* Submit button */
+.submitBtn {
+  width: 100%;
+  padding: 10px;
+  background: #077077;
+  color: #ffffff;
+  border: none;
+  border-radius: 30px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.submitBtn:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+/* Errors */
+.errorText {
+  color: #ff4d4f;
+  font-size: 12px;
+  margin: 4px 0 8px 10px;
+}
+
+/* Login text */
+.loginText {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #85b5da;
+  text-align: center;
+}
+
+.loginLink {
+  color: #eaf0f1f3;
+  font-size: medium;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.loginLink:hover {
+  text-decoration: underline;
+}
+
+/* Brand */
+.brand {
+  font-size: 34px;
+  font-weight: 550;
+  margin-bottom: 8px;
+  font-family: "Silver Editorial Italic";
+  background: linear-gradient(
+    179deg,
+    #bfbd7f,
+    #1bacbb,
+    #392e05,
+    #797770,
+    #917420
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+}
+
+#eyeicon {
+  position: absolute;
+  top: 50%;
+  left: auto; right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: hsl(180, 1%, 38%);
+  font-size: 16px;
+}
+
+
+
+
+
+

@@ -1,0 +1,73 @@
+.stats {
+  padding: 80px 20px;
+  background: #2563eb;
+  color: white;
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.card {
+  flex: 1 1 200px;
+}
+
+.value {
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.label {
+  font-size: 16px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* ---------------- TABLET: max-width 1024px ---------------- */
+@media (max-width: 1024px) {
+  .container {
+    gap: 30px;
+    justify-content: space-between;
+  }
+
+  .value {
+    font-size: 32px;
+  }
+
+  .label {
+    font-size: 15px;
+  }
+}
+
+/* ---------------- MOBILE: max-width 640px ---------------- */
+@media (max-width: 640px) {
+  .stats {
+    padding: 60px 16px; /* reduce vertical space */
+  }
+
+  .container {
+    flex-direction: column; /* stack cards */
+    gap: 20px; /* smaller gap */
+    align-items: center;
+  }
+
+  .card {
+    flex: 1 1 auto;
+    max-width: 250px; /* avoid stretching */
+  }
+
+  .value {
+    font-size: 28px;
+  }
+
+  .label {
+    font-size: 14px;
+  }
+}

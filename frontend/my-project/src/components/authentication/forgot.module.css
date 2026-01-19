@@ -24,7 +24,7 @@
 .title {
   font-size: 22px;
   margin-bottom: 25px;
-  color: #333;
+  color: #014d4d;
 }
 
 /* Input wrappers */
@@ -32,7 +32,7 @@
 .otpWrapper {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   position: relative;
 }
 
@@ -80,12 +80,12 @@ min-width: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  padding: 10px 12px;      /* slightly smaller */
+  width: 130px;
+  padding: 14px 12px ;      /* slightly smaller */
   font-size: 12px;
   border-radius: 10px;
   border: none;
-
+  margin: 10px;
   background-color: #66a6ff;
   color: #fff;
   font-weight: 600;
@@ -93,6 +93,9 @@ min-width: 0;
 
   min-width: 72px;         /* smaller on mobile */
   white-space: nowrap;
+
+
+  
 }
 
 

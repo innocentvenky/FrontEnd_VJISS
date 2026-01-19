@@ -3,6 +3,12 @@ import api from '../apis/api'
 import {AuthContext} from "../contexts/AuthContext";
 import './create_course.css'
 
+
+
+
+
+
+
 function CourseWithSyllabusForm() {
   const [courseData, setCourseData] = useState({
     course_name: "",

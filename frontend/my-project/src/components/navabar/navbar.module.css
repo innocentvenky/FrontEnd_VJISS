@@ -1,0 +1,245 @@
+/* =================================================
+   ROOT VARIABLES – CORPORATE THEME
+================================================= */
+:root {
+  --nav-bg: #ffffff;
+  --nav-border: #e5e7eb;
+
+  --brand-primary: #1f4fd8;
+  --brand-primary-dark: #173db3;
+  --brand-soft: #eef2ff;
+
+  --text-dark: #0f172a;
+  --text-muted: #64748b;
+
+  --hover-bg: #f1f5f9;
+
+  --shadow-nav: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+/* =================================================
+   NAVBAR ROOT
+================================================= */
+.navbar {
+  width: 100%;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--nav-border);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: var(--shadow-nav);
+}
+
+/* =================================================
+   NAV CONTAINER
+================================================= */
+.navContainer {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 14px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* =================================================
+   LOGO
+================================================= */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.logo img {
+  width: 38px;
+  height: 38px;
+}
+
+.logo span {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: 0.3px;
+}
+
+/* =================================================
+   DESKTOP NAV LINKS
+================================================= */
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.navItem {
+  position: relative;
+  cursor: pointer;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color 0.25s ease;
+}
+
+.navItem:hover {
+  color: var(--brand-primary);
+}
+
+/* Underline animation */
+.navItem::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0%;
+  height: 3px;
+  background: var(--brand-primary);
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+
+.navItem:hover::after {
+  width: 100%;
+}
+
+/* Active link */
+.active {
+  color: var(--brand-primary);
+  font-weight: 600;
+}
+
+.active::after {
+  width: 100%;
+}
+
+/* =================================================
+   AUTH BUTTON
+================================================= */
+.authBtn {
+  padding: 9px 18px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+
+  background: linear-gradient(
+    135deg,
+    var(--brand-primary),
+    var(--brand-primary-dark)
+  );
+  color: #ffffff;
+
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.authBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(31, 79, 216, 0.35);
+}
+
+.authBtn:active {
+  transform: scale(0.96);
+}
+
+/* =================================================
+   MOBILE MENU BUTTON
+================================================= */
+.menuBtn {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  width: 44px;
+  height: 44px;
+
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+
+  color: var(--brand-primary);
+
+  transition: background 0.25s ease, transform 0.15s ease;
+}
+
+.menuBtn:hover {
+  background: var(--brand-soft);
+}
+
+.menuBtn:active {
+  transform: scale(0.95);
+}
+
+/* =================================================
+   MOBILE MENU
+================================================= */
+.mobileMenu {
+  background: #ffffff;
+  border-top: 1px solid var(--nav-border);
+  display: flex;
+  flex-direction: column;
+  padding: 12px 18px;
+}
+
+/* Mobile nav item */
+.mobileItem {
+  padding: 14px 14px;
+  border-radius: 10px;
+  font-size: 15px;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.mobileItem:hover {
+  background: var(--hover-bg);
+  color: var(--brand-primary);
+  padding-left: 20px;
+}
+
+/* Active mobile item */
+.mobileActive {
+  background: var(--brand-soft);
+  color: var(--brand-primary);
+  font-weight: 600;
+}
+
+/* =================================================
+   STATES
+================================================= */
+.loading,
+.error {
+  padding: 20px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* =================================================
+   TABLET VIEW
+================================================= */
+@media (max-width: 1024px) {
+  .navLinks {
+    gap: 18px;
+  }
+
+  .logo span {
+    font-size: 16px;
+  }
+}
+
+/* =================================================
+   MOBILE VIEW
+================================================= */
+@media (max-width: 768px) {
+  .navLinks {
+    display: none;
+  }
+
+  .menuBtn {
+    display: flex;
+  }
+}

@@ -1,0 +1,276 @@
+/* ===============================
+   ROOT VARIABLES
+================================ */
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --bg-page: #f4f6fb;
+  --bg-card: #ffffff;
+  --text-dark: #111827;
+  --text-muted: #6b7280;
+  --border-light: #e5e7eb;
+}
+
+/* ===============================
+   PAGE BASE
+================================ */
+body {
+  background: var(--bg-page);
+}
+
+/* ===============================
+   COURSES SECTION
+================================ */
+.courses-section {
+  padding: 40px 20px;
+}
+
+/* ===============================
+   GRID
+================================ */
+.courses-grid {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+/* ===============================
+   COURSE CARD
+================================ */
+.course-card {
+  background: var(--bg-card);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.course-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* ===============================
+   COURSE LOGO
+================================ */
+.course-logo {
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+  background: #f1f5f9;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+/* ===============================
+   HEADER
+================================ */
+.course-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.course-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+/* ===============================
+   LEVEL BADGE
+================================ */
+.level-badge {
+  padding: 4px 10px;
+  font-size: 11px;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.level-badge.beginner {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.level-badge.intermediate {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.level-badge.advanced {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ===============================
+   META
+================================ */
+.course-meta {
+  margin: 8px 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* ===============================
+   DESCRIPTION
+================================ */
+.course-description {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  flex-grow: 1;
+}
+
+/* ===============================
+   ACTIONS
+================================ */
+.course-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.action-btn {
+  flex: 1;
+  padding: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.15s ease;
+}
+
+/* Enroll */
+.action-btn.enroll {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.action-btn.enroll:hover {
+  background: var(--primary-dark);
+}
+
+/* Details */
+.action-btn.details {
+  background: #eef2ff;
+  color: var(--primary);
+}
+
+.action-btn.details:hover {
+  background: #e0e7ff;
+}
+
+/* Disabled */
+.action-btn.disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+}
+
+/* ===============================
+   APPLIED SECTION
+================================ */
+.appliedSection {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Header */
+.appliedHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background:linear-gradient(rgb(113, 113, 231));
+  color: #ffffff;
+  padding: 14px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.appliedHeader h2 {
+  font-size: 18px;
+}
+
+/* List */
+.appliedList {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+/* Applied Card */
+.appliedCard {
+  background: #f9fafb;
+  padding: 16px;
+  border-radius: 12px;
+  border-left: 4px solid var(--primary);
+  position: relative;
+}
+
+.appliedCard h3 {
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+/* Status */
+.status {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 10px;
+  font-size: 11px;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status.approved {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status.rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Empty */
+.emptyText {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+  .courses-grid {
+    gap: 18px;
+  }
+
+  .course-card {
+    padding: 14px;
+  }
+
+  .course-header h3 {
+    font-size: 15px;
+  }
+}

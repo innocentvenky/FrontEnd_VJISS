@@ -1,0 +1,152 @@
+.services {
+  padding: 60px 20px;
+  background: #ffffff;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.badge {
+  display: inline-block;
+  background: #e0e7ff;
+  color: #2563eb;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.title span {
+  color: #2563eb;
+}
+
+.subtitle {
+  margin-top: 14px;
+  font-size: 16px;
+  color: #475569;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+/* CARD */
+.card {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.icon {
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+
+.cardDescription {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* ---------------- TABLET: max-width 1024px ---------------- */
+@media (max-width: 1024px) {
+  .title {
+    font-size: 32px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .card {
+    padding: 28px 20px;
+  }
+
+  .cardTitle {
+    font-size: 16px;
+  }
+
+  .cardDescription {
+    font-size: 13px;
+  }
+}
+
+/* ---------------- MOBILE: max-width 640px ---------------- */
+@media (max-width: 640px) {
+  .services {
+    padding: 40px 16px;
+  }
+
+  .header {
+    margin-bottom: 40px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr; /* stack cards */
+    gap: 16px;
+  }
+
+  .card {
+    padding: 24px 16px;
+  }
+
+  .icon {
+    font-size: 36px;
+  }
+
+  .cardTitle {
+    font-size: 15px;
+  }
+
+  .cardDescription {
+    font-size: 13px;
+  }
+}

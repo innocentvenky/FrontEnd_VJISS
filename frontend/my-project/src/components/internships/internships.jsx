@@ -4,6 +4,16 @@ import api from "../apis/api";
 import Navbar from "../navabar/navbar";
 import "./internships.css";
 
+
+
+const Intership_ACTIONS = {
+  user: ["enroll", ],
+  staff: ["enroll", "details", "edit", "delete"],
+  admin: ["enroll", "details", "edit", "delete"],
+};
+
+
+
 const InternshipOffers = () => {
   const { token,public_id } = useContext(AuthContext);
   const [internships, setInternships] = useState([]);
@@ -23,6 +33,12 @@ const [editData, setEditData] = useState({
   technologies: "",
 });
 
+
+  //  const role = is_superuser
+  // ? "admin"
+  // : is_staff
+  // ? "staff"
+  // : "user";
 
   
   // ✅ FETCH DATA
@@ -228,6 +244,22 @@ console.log("data",editData)
                   </button>
                   
                 )}
+
+{/* 
+  {Intership_ACTIONS[role].map((action) => (
+                    <button
+                      key={action}
+                      type="button"
+                      className={`action-btn ${action}`}
+                      onClick={() =>
+                        handleAction(action, course.course_id)
+                      }
+                    >
+                      {action.toUpperCase()}
+                    </button>
+                  ))} */}
+{/* 
+
              <button
   className="modify-btn"
   onClick={() => openEditModal(item)}
@@ -241,23 +273,13 @@ console.log("data",editData)
     onClick={() => handleDelete(item)}
   >
     Delete 🗑️
-  </button>
+  </button> */}
 
               </div>
 
             );
           })}
                             {/* ➕ ADD TRAINER BUTTON */}
-<div className="add-trainer-wrapper">
-  <button
-    className="add-trainer-btn"
-    onClick={() => alert("Open Add Trainer Form")}
-    title="Add New Trainer"
-  >
-    +
-  </button>
-</div>
-
 
 
 

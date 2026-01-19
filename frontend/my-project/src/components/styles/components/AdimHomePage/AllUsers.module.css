@@ -1,0 +1,237 @@
+/* ===============================
+   Layout
+================================ */
+.wrapper {
+  background: #f9fafb;
+  padding: 24px;
+  border-radius: 16px;
+  min-height: 100%;
+}
+
+.heading {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 20px;
+}
+
+/* ===============================
+   Filters
+================================ */
+.filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.search {
+  flex: 1;
+  min-width: 240px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  outline: none;
+}
+
+.search:focus {
+  border-color: #2563eb;
+}
+
+.filters select {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  background: #fff;
+  cursor: pointer;
+}
+
+/* ===============================
+   Table
+================================ */
+.tableContainer {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow-x: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead {
+  background: #f3f4f6;
+}
+
+.table th {
+  text-align: left;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.table td {
+  padding: 14px 16px;
+  font-size: 14px;
+  color: #374151;
+  border-top: 1px solid #e5e7eb;
+}
+
+.table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.role {
+  font-weight: 600;
+  color: #2563eb;
+}
+
+/* ===============================
+   Status Badge
+================================ */
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.blocked {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ===============================
+   Action Buttons
+================================ */
+.blockBtn {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.unblockBtn {
+  background-color: #22c55e;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.blockBtn:hover,
+.unblockBtn:hover {
+  opacity: 0.85;
+  transform: scale(0.97);
+}
+
+/* ===============================
+   Empty State
+================================ */
+.empty {
+  text-align: center;
+  padding: 24px;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* ===============================
+   Responsive
+================================ */
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .table th,
+  .table td {
+    padding: 12px;
+  }
+}
+
+
+
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modalContent {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.closeBtn {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background: #1a73e8;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.clickableEmail {
+  color: #1a73e8;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.applied {
+  background: #d1f7c4;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.appLink {
+  background: none;
+  border: none;
+  color: #1a73e8;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+}
+.appLink:hover {
+  color: #155ab6;
+}

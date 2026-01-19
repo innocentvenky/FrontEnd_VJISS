@@ -1,184 +1,99 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext";
+import React, { useEffect, useState, useContext } from "react";
 import Navbar from "../navabar/navbar";
-import feather from "feather-icons";
+import api from "../apis/api";
+import { AuthContext } from "../contexts/AuthContext";
 import "./dashboard.css";
-
+import { FiBookOpen, FiBriefcase, FiUsers, FiCalendar } from "react-icons/fi";
 
 const Dashboard = () => {
-  const { token, role ,logout} = React.useContext(AuthContext);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [showLogin,setShowLogin]=useState(false);
-  const [showAuthPopup, setShowAuthPopup] = useState(false);
-
-
-  const navigate=useNavigate()
-  console.log("Dashboard token:", token);
- 
-
-useEffect(() => {
-  feather.replace();
-
-  
-
-  document.querySelectorAll(".fade-in").forEach((el) => {
-    el.classList.add("animate-fade-in");
+  const { token, public_id } = useContext(AuthContext);
+  const [stats, setStats] = useState({
+    courses: 0,
+    internships: 0,
+    jobs: 0,
+    trainers: 0,
   });
+  const [recentCourses, setRecentCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // ✅ cleanup must be a FUNCTION
-  return () => {
-    // nothing to cleanup for feather
-  };
-}, [token]);
+  useEffect(() => {
+    const fetchDashboard = async () => {
+      try {
+        setLoading(true);
+        const coursesRes = await api.get("/VJISS/course_details/");
+        const internshipsRes = await api.get("/VJISS/internship_offers_details/");
+        const jobsRes = await api.get("/VJISS/job_notification_details/");
+        const trainersRes = await api.get("/VJISS/trainer_details/");
 
+        setStats({
+          courses: coursesRes.data.length,
+          internships: internshipsRes.data.length,
+          jobs: jobsRes.data.length,
+          trainers: trainersRes.data.length,
+        });
 
-  
+        setRecentCourses(
+          coursesRes.data.slice(-4).reverse()
+        );
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchDashboard();
+  }, []);
 
-
-useEffect(() => {
-  if (token) {
-    // if logged in → ensure normal behaviour
-    setShowAuthPopup(false);
-    document.body.style.overflow = "auto";
-    return;
-  }
-
-  const interval = setInterval(() => {
-    // 🔒 blur + scroll off
-    setShowAuthPopup(true);
-    document.body.style.overflow = "hidden";
-
-    // ⏳ popup visible time
-    setTimeout(() => {
-      setShowAuthPopup(false);
-      document.body.style.overflow = "auto";
-    }, 3000); // blur stays for 2 sec
-
-  }, 11000); // repeats every 11 sec
-
-  return () => {
-    clearInterval(interval);
-    document.body.style.overflow = "auto";
-  };
-}, [token]);
-
-
-
-
-
-
-
-
-
-
-   const handleLogout = () => {
-    logout();
-    navigate("/");
-  };
-    const handleLogIn = () => {
-      
-    navigate("/login");
-  };
+  if (loading) return <p className="dashboard-loading">Loading dashboard...</p>;
 
   return (
-    
+    <>
+      <Navbar />
 
+      <div className="dashboard-container">
+        {/* ================= WELCOME ================= */}
+        <header className="dashboard-header">
+          <h1>Welcome Back!</h1>
+          <p>Explore your courses, internships, and more.</p>
+        </header>
 
-      <div className={`page ${showAuthPopup ? "blur-background" : ""}`}>
-
-
-<Navbar/>
-
-
-       
-
-      {/* HERO SECTION */}
-      <section id="home" className="hero fade-in">
-        <h1>VJ Innovate Software Solutions</h1>
-        <p>Empowering the next generation of developers</p>
-        <div className="hero-buttons">
-          <a href="#courses" className="btn-primary">Explore Courses</a>
-          <a href="#services" className="btn-outline">Our Services</a>
-        </div>
-      </section>
-
-      {/* SERVICES */}
-      <section id="services" className="section">
-        <h2 className="section-title fade-in">Our Services</h2>
-
-        <div className="card-grid">
-          <div className="card fade-in">
-            <h3>E-commerce Development</h3>
-            <p>Custom online stores with payment integration.</p>
+        {/* ================= QUICK STATS ================= */}
+        <section className="stats-grid">
+          <div className="stat-card courses">
+            <FiBookOpen className="stat-icon" />
+            <div className="stat-info">
+              <h3>{stats.courses}</h3>
+              <p>Courses</p>
+            </div>
           </div>
 
-          <div className="card fade-in">
-            <h3>Web Development</h3>
-            <p>Fast, secure, scalable web applications.</p>
+          <div className="stat-card internships">
+            <FiBriefcase className="stat-icon" />
+            <div className="stat-info">
+              <h3>{stats.internships}</h3>
+              <p>Internships</p>
+            </div>
           </div>
-        </div>
-      </section>
 
-      {/* COURSES */}
-      <section id="courses" className="section light-bg">
-        <h2 className="section-title fade-in">Our Courses</h2>
+          <div className="stat-card jobs">
+            <FiCalendar className="stat-icon" />
+            <div className="stat-info">
+              <h3>{stats.jobs}</h3>
+              <p>Job Notifications</p>
+            </div>
+          </div>
 
-        <div className="card-grid">
-          <div className="card fade-in">Python Programming</div>
-          <div className="card fade-in">Python + Django + DRF</div>
-          <div className="card fade-in">Java Programming</div>
-          <div className="card fade-in">HTML & CSS</div>
-        </div>
-      </section>
-
-      {/* INTERNSHIP */}
-      <section id="internship" className="section">
-        <h2 className="section-title fade-in">Internship Program</h2>
-
-        <div className="card-grid">
-          <div className="card fade-in">Industry Training</div>
-          <div className="card fade-in">Live Projects</div>
-          <div className="card fade-in">Expert Mentors</div>
-          <div className="card fade-in">Placement Support</div>
-        </div>
-      </section>
-
-      {/* CONTACT */}
-      <section id="contact" className="section light-bg">
-        <h2 className="section-title fade-in">Contact Us</h2>
-
-        <form className="contact-form fade-in">
-          <input type="text" placeholder="Name" required />
-          <input type="email" placeholder="Email" required />
-          <textarea placeholder="Message" required></textarea>
-          <button type="submit" className="btn-primary">Send Message</button>
-        </form>
-      </section>
-
-      {/* FOOTER */}
-      <footer className="footer">
-        © 2025 VJ Innovate Software Solutions
-      </footer>
-
-
-
-{showAuthPopup && (
-  <div className="modal-overlay">
-    <div className="modal-box">
-      <h3>You are not logged in</h3>
-      <p>You can still browse the dashboard.</p>
-    </div>
-  </div>
-)}
-
-
-
-
-
-
-    </div>
+          <div className="stat-card trainers">
+            <FiUsers className="stat-icon" />
+            <div className="stat-info">
+              <h3>{stats.trainers}</h3>
+              <p>Trainers</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
   );
 };
 

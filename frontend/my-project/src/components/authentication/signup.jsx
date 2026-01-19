@@ -3,7 +3,45 @@ import React, { useState,useRef } from "react";
 import axios from "axios";
 import {AuthContext} from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import './signup.css';
+import styles from "./signup.module.css";
+
+
+
+const PasswordInput = ({
+  name,
+  placeholder,
+  value,
+  onChange,
+  required = false,
+}) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  return (
+    <div className={styles.inputWrapper}>
+      <i className="fas fa-lock"></i>
+
+      <input
+        type={showPassword ? "text" : "password"}
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        required={required}
+      />
+
+      <i
+        className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
+        onClick={() => setShowPassword(!showPassword)}
+        id={styles.eyeicon}
+      ></i>
+    </div>
+  );
+};
+
+
+
+
+
 
 
 
@@ -79,6 +117,8 @@ const sendSignupOtp = async () => {
     startOtpCountdown();
   } catch (err) {
     alert("Failed to send OTP");
+    setSignupOtpSent(false);
+    console.error("Error sending OTP", err);
   }
 };
 
@@ -221,165 +261,158 @@ const handleSignUpSubmit = async (e) => {
 };
 
 
+  
   return (
-    <div className="signup-container">
-      <form className="signup-form" onSubmit={ handleSignUpSubmit}>
-        <h2 className="VJISS">VJISS</h2>
-        <h2 className="title">Sign Up</h2>
+  <div className={styles.signupContainer}>
+    <form className={styles.signupForm} onSubmit={handleSignUpSubmit}>
+      <h2 className={styles.brand}>VJISS</h2>
+      <h2 className={styles.title}>Sign Up</h2>
 
-        {/* Name Fields */}
-        <div className="name-fields">
-          <div className="input-wrapper">
-            <i className="fas fa-user"></i>
-            <input
-              type="text"
-              name="first_name"
-              placeholder="First Name"
-              value={formData.first_name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="input-wrapper">
-            <i className="fas fa-user"></i>
-            <input
-              type="text"
-              name="last_name"
-              placeholder="Last Name"
-              value={formData.last_name
-
-              }
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </div>
-
-        {/* Email */}
-        <div className="input-wrapper">
-          <i className="fas fa-envelope"></i>
+      {/* Name Fields */}
+      <div className={styles.nameFields}>
+        <div className={styles.inputWrapper}>
+          <i className="fas fa-user"></i>
           <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-         {errors.email && <p className="error-text">{errors.email}</p>}
-
-        {/* OTP Field */}
-        <div className="otp-field input-wrapper">
-            <i className="fas fa-shield-alt"></i>
-  <input
-    type="text"
-    name="otp"
-    placeholder="Enter OTP"
-    maxLength={6}
-    value={otp}
-    onChange={(e) => setOtp(e.target.value)}
-    disabled={!signupOtpSent}
-  />
-
-  <button
-    type="button"
-    className="otp-btn"
-    onClick={sendSignupOtp}
-    disabled={signupOtpSent && !otpExpired}
-  >
-    {/* Button text logic */}
-    {!signupOtpSent && "Send OTP"}
-    {signupOtpSent && !otpExpired && formatTime(timeLeft)}
-    {signupOtpSent && otpExpired && "Resend OTP"}
-  </button>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-        {/* Phone Number */}
-        <div className="input-wrapper">
-          <i className="fas fa-phone"></i>
-          <input
-            type="tel"
-            name="phone_number"
-            placeholder="Phone Number"
-            value={formData.phone_number}
-            onChange={handleChange}
-            required
-          />
-        </div> {errors.phone_number && (
-  <p className="error-text">{errors.phone_number}</p>
-)}
-
-
-        {/* Gender */}
-        <div className="gender-container">
-          {["Male", "Female", "Other"].map((genderOption) => (
-            <label key={genderOption}>
-              <input
-                type="radio"
-                name="gender"
-                value={genderOption}
-                checked={formData.gender === genderOption}
-                onChange={handleChange}
-              />
-              <span>{genderOption}</span>
-            </label>
-          ))}
-        </div>
-
-        {/* Date of Birth */}
-        <div className="input-wrapper">
-          <i className="fas fa-calendar-alt"></i>
-          <input
-            type="date"
-            name="date_of_birth"
-            value={formData.date_of_birth}
+            type="text"
+            name="first_name"
+            placeholder="First Name"
+            value={formData.first_name}
             onChange={handleChange}
             required
           />
         </div>
 
-        {/* Password */}
-        <div className="input-wrapper">
-          <i className="fas fa-lock"></i>
+        <div className={styles.inputWrapper}>
+          <i className="fas fa-user"></i>
           <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
+            type="text"
+            name="last_name"
+            placeholder="Last Name"
+            value={formData.last_name}
             onChange={handleChange}
             required
           />
-        </div>{errors.password && <p className="error-text">{errors.password}</p>}
+        </div>
+      </div>
 
-        {/* Submit */}
+      {/* Email */}
+      <div className={styles.inputWrapper}>
+        <i className="fas fa-envelope"></i>
         <input
-          type="submit"
-          className="submit-btn"
-          value={isSubmitting ? "Creating..." : "Sign Up"}
-          disabled={isSubmitting}
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      {errors.email && <p className={styles.errorText}>{errors.email}</p>}
+
+      {/* OTP */}
+      <div className={`${styles.inputWrapper} ${styles.otpField}`}>
+        <i className="fas fa-shield-alt"></i>
+        <input
+          type="text"
+          placeholder="Enter OTP"
+          maxLength={6}
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+          disabled={!signupOtpSent}
         />
 
-        {/* Back to Login */}
-         <p className={"loginText"}>
-  If you already have an account ?  {" "}
-  <span className={"loginLink"} onClick={onSwitchToLogin}>
-    Log In
-  </span>
-</p>
-      </form>
-    </div>
+        <button
+          type="button"
+          className={styles.otpBtn}
+          onClick={sendSignupOtp}
+          disabled={signupOtpSent && !otpExpired}
+        >
+          {!signupOtpSent && "Send OTP"}
+          {signupOtpSent && !otpExpired && formatTime(timeLeft)}
+          {signupOtpSent && otpExpired && "Resend OTP"}
+        </button>
+      </div>
+
+      {/* Phone */}
+      <div className={styles.inputWrapper}>
+        <i className="fas fa-phone"></i>
+        <input
+          type="tel"
+          name="phone_number"
+          placeholder="Phone Number"
+          value={formData.phone_number}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      {errors.phone_number && (
+        <p className={styles.errorText}>{errors.phone_number}</p>
+      )}
+
+      {/* Gender */}
+      <div className={styles.genderContainer}>
+        {["Male", "Female", "Other"].map((g) => (
+          <label key={g} className={styles.genderLabel}>
+            <input
+              type="radio"
+              name="gender"
+              value={g}
+              checked={formData.gender === g}
+              onChange={handleChange}
+            />
+            <span>{g}</span>
+          </label>
+        ))}
+      </div>
+
+      {/* DOB */}
+      <div className={styles.inputWrapper}>
+        <i className="fas fa-calendar-alt"></i>
+        <input
+          type="date"
+          name="date_of_birth"
+          value={formData.date_of_birth}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      {/* Password */}
+      <PasswordInput
+        name="password"
+        placeholder="Password"
+        value={formData.password}
+        onChange={handleChange} 
+        required
+      />
+
+
+
+
+
+      {errors.password && (
+        <p className={styles.errorText}>{errors.password}</p>
+      )}
+
+      {/* Submit */}
+      <input
+        type="submit"
+        className={styles.submitBtn}
+        value={isSubmitting ? "Creating..." : "Sign Up"}
+        disabled={isSubmitting}
+      />
+
+      {/* Login link */}
+      <p className={styles.loginText}>
+        If you already have an account?{" "}
+        <span className={styles.loginLink} onClick={onSwitchToLogin}>
+          Log In
+        </span>
+      </p>
+    </form>
+  </div>
+
+
   );
 };
 

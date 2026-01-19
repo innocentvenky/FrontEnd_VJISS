@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate,useLocation } from "react-router-dom";
 import feather from "feather-icons";
 import { NavbarContext } from "../contexts/navbarContext";
-import './navbar.css'
+import styles from "./navbar.module.css";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -20,39 +20,52 @@ const Navbar = () => {
     setMenuOpen(false);
   };
 
-  return (
-    <nav className="navbar">
-      <div className="nav-container">
-        <div className="logo" onClick={() => goTo("/")}>
-          <img src="vjiss.ico" alt="Logo" />
+ return (
+    <nav className={styles.navbar}>
+      <div className={styles.navContainer}>
+        <div className={styles.logo} onClick={() => goTo("/")}>
+          <img src={`${process.env.PUBLIC_URL}/vjiss.ico`
+} alt="Logo" />
           <span>VJ Innovative</span>
         </div>
 
         {/* Desktop Menu */}
- <ul className="nav-links desktop-only">
-  <li className={location.pathname === "/" ? "active" : ""} onClick={() => goTo("/")}>Home</li>
+        <ul className={styles.navLinks}>
+          {[
+            ["/", "Home"],
+            ["/courses", "Courses"],
+            ["/internship", "Internship"],
+            ["/newbacth", "New Batch"],
+            ["/jobnotifications", "Job Notifications"],
+            ["/trainers", "Trainers Info"],
+            ["/about", "About"],
+          ].map(([path, label]) => (
+            <li
+              key={path}
+              className={`${styles.navItem} ${
+                location.pathname === path ? styles.active : ""
+              }`}
+              onClick={() => goTo(path)}
+            >
+              {label}
+            </li>
+          ))}
 
-  <li className={location.pathname === "/courses" ? "active" : ""} onClick={() => goTo("/courses")}>Courses</li>
-  <li className={location.pathname === "/internship" ? "active" : ""} onClick={() => goTo("/internship")}>Internship</li>
-    <li className={location.pathname === "/services" ? "active" : ""} onClick={() => goTo("/services")}>New Batch</li>
-  <li className={location.pathname === "/jobnotifications" ? "active" : ""} onClick={() => goTo("/jobnotifications")}>Job Notifications</li>
-  <li className={location.pathname === "/trainers" ? "active" : ""} onClick={() => goTo("/trainers")}>Trainers Info</li>
-  <li className={location.pathname === "/about" ? "active" : ""} onClick={() => goTo("/about")}>About</li>
-
-  <li>
-    <button
-      className={`logout-btn ${!token ? "blink-border" : ""}`}
-      onClick={token ? handleLogout : handleLogin}
-    >
-      {token ? "Logout" : "Login"}
-    </button>
-  </li>
-</ul>
-
+          <li>
+            <button
+              className={`${styles.authBtn} ${
+                !token ? styles.blink : ""
+              }`}
+              onClick={token ? handleLogout : handleLogin}
+            >
+              {token ? "Logout" : "Login"}
+            </button>
+          </li>
+        </ul>
 
         {/* Mobile Button */}
         <button
-          className="menu-btn mobile-only"
+          className={styles.menuBtn}
           onClick={() => setMenuOpen(!menuOpen)}
         >
           <i data-feather="menu"></i>
@@ -61,26 +74,40 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="mobile-menu">
-  <span className={location.pathname === "/" ? "active" : ""} onClick={() => goTo("/")}>Home</span>
-  <span className={location.pathname === "/services" ? "active" : ""} onClick={() => goTo("/services")}>Services</span>
-  <span className={location.pathname === "/courses" ? "active" : ""} onClick={() => goTo("/courses")}>Courses</span>
-  <span className={location.pathname === "/internship" ? "active" : ""} onClick={() => goTo("/internship")}>Internship</span>
-  <span className={location.pathname === "/jobnotifications" ? "active" : ""} onClick={() => goTo("/jobnotifications")}>Job Notifications</span>
-  <span className={location.pathname === "/trainers" ? "active" : ""} onClick={() => goTo("/trainers")}>Trainers Info</span>
-  <span className={location.pathname === "/about" ? "active" : ""} onClick={() => goTo("/about")}>Contact</span>
+        <div className={styles.mobileMenu}>
+          {[
+            ["/", "Home"],
+            ["/newbacth", "New Batch"],
+            ["/courses", "Courses"],
+            ["/internship", "Internship"],
+            ["/jobnotifications", "Job Notifications"],
+            ["/trainers", "Trainers Info"],
+            ["/about", "About"],
+          ].map(([path, label]) => (
+            <span
+              key={path}
+              className={`${styles.mobileItem} ${
+                location.pathname === path ? styles.mobileActive : ""
+              }`}
+              onClick={() => goTo(path)}
+            >
+              {label}
+            </span>
+          ))}
 
-  <button
-    className={`logout-btn ${!token ? "blink-border" : ""}`}
-    onClick={token ? handleLogout : handleLogin}
-  >
-    {token ? "Logout" : "Login"}
-  </button>
-</div>
-
+          <button
+            className={`${styles.authBtn} ${
+              !token ? styles.blink : ""
+            }`}
+            onClick={token ? handleLogout : handleLogin}
+          >
+            {token ? "Logout" : "Login"}
+          </button>
+        </div>
       )}
     </nav>
   );
 };
+
 
 export default Navbar;
