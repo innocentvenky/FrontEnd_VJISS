@@ -184,6 +184,7 @@ body {
   border-radius: 14px;
   padding: 16px;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+  
 }
 
 /* Header */
@@ -217,6 +218,12 @@ body {
   border-radius: 12px;
   border-left: 4px solid var(--primary);
   position: relative;
+  cursor: pointer;
+}
+
+
+.appliedCard:hover {
+  background: #a4a5a7;
 }
 
 .appliedCard h3 {
@@ -274,3 +281,11 @@ body {
     font-size: 15px;
   }
 }
+
+
+
+
+
+
+
+

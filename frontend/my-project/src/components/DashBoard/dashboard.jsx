@@ -5,7 +5,10 @@ import { AuthContext } from "../contexts/AuthContext";
 import "./dashboard.css";
 import { FiBookOpen, FiBriefcase, FiUsers, FiCalendar } from "react-icons/fi";
 
-const Dashboard = () => {
+
+const Dashboard = ({ blur, setBlur }) => {
+
+console.log("Dashboard blur prop:", blur);
   const { token, public_id } = useContext(AuthContext);
   const [stats, setStats] = useState({
     courses: 0,
@@ -48,9 +51,14 @@ const Dashboard = () => {
   if (loading) return <p className="dashboard-loading">Loading dashboard...</p>;
 
   return (
-    <>
-      <Navbar />
+  
+  <>
+    <Navbar />
 
+    {/* 🔹 Blur wrapper */}
+   
+
+    <div className={`dashboard-blur-wrapper ${blur ? "blurred" : ""}`}>
       <div className="dashboard-container">
         {/* ================= WELCOME ================= */}
         <header className="dashboard-header">
@@ -93,8 +101,15 @@ const Dashboard = () => {
           </div>
         </section>
       </div>
-    </>
-  );
+    </div>
+
+    
+
+
+    
+  </>
+);
+
 };
 
 export default Dashboard;

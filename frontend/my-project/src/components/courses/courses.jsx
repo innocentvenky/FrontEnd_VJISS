@@ -54,6 +54,7 @@ const Courses = () => {
          My Applications
       -------------------------------- */}
       <div className={styles.appliedSection}>
+        
         <div
           className={styles.appliedHeader}
           onClick={() => setShowApplied(!showApplied)}
@@ -70,7 +71,8 @@ const Courses = () => {
               enrollments.map((item) => (
                 <div
                   key={item.enrollment_id}
-                  className={styles.appliedCard}
+                  className={styles.appliedCard} 
+                  onClick={() => navigate(`/course/${item.course.course_id}`)}
                 >
                   <h3>{item.course.course_name}</h3>
                   <p>

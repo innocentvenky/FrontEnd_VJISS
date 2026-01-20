@@ -47,6 +47,8 @@
   border-radius: 14px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+  padding-bottom: 72px;
 }
 
 .internship-card:hover {
@@ -233,4 +235,12 @@
 
 .delete-btn:hover {
   background: #e73535;
+}
+
+
+
+.internship-actions{
+ position: absolute;
+  bottom: 16px;
+  right: 16px; /* reserve space for bottom button/badge */
 }

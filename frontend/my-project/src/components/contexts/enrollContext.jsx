@@ -37,22 +37,13 @@ export const CourseProvider = ({ children }) => {
      Helpers
   ----------------------------- */
   const getEnrollmentByCourse = (courseId) => {
-  console.log("🔍 getEnrollmentByCourse called");
-  console.log("➡️ courseId:", courseId);
-  console.log("📦 enrollments array:", enrollments);
-
+  
   const found = enrollments.find((e) => {
-    console.log(
-      "🔎 checking enrollment:",
-      "enrollment_id:", e.enrollment_id,
-      "| course_id:", e.course?.course_id,
-      "| status:", e.status
-    );
+   
 
     return e.course?.course_id === courseId;
   });
 
-  console.log("✅ matched enrollment:", found);
   return found;
 };
 
@@ -60,7 +51,7 @@ export const CourseProvider = ({ children }) => {
 
   const getEnrollmentStatus = (courseId) => {
     const enrollment = getEnrollmentByCourse(courseId);
-    console.log(enrollment);
+ 
     return enrollment ? enrollment.status : null;
   };
 

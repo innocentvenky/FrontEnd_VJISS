@@ -83,6 +83,19 @@ const BatchDetails = () => {
     [public_id]
   );
 
+const isNewbatch = (startDate) => {
+  if (!startDate) return false;
+
+  const today = new Date();
+  const batchDate = new Date(startDate);
+
+  // difference in days (positive = future, negative = past)
+  const diffTime = batchDate - today;
+  const diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+  // show NEW from -7 days to +7 days
+  return diffDays >= -7 && diffDays <= 7;
+};
 
 
   if (loading) return <div className={styles.loading}>Loading batches...</div>;
@@ -103,10 +116,14 @@ const BatchDetails = () => {
 
     return (
       <div key={batch.batch_id} className={styles.batchCard}>
+    {isNewbatch(batch.start_date) && (
+              <span className={styles.newBadge}>NEW</span>
+            )}
+
         <h2 className={styles.courseName}>
           {batch.course.course_name}
         </h2>
-
+      
         <p><strong>Faculty:</strong> {batch.faculty.trainer_name}</p>
 
         <p><strong>Start:</strong> {batch.start_date || "TBD"}</p>

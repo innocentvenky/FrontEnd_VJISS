@@ -1,5 +1,6 @@
 import styles from './carousel.module.css';
 
+
 const Carousal=()=>{
     return(
         <div>   

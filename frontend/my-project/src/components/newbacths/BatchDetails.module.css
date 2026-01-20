@@ -28,6 +28,7 @@
   padding: 22px;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+   position: relative; 
 }
 
 .batchCard:hover {
@@ -145,4 +146,17 @@
   .enrolledBtn {
     font-size: 14px;
   }
+}
+/* NEW BADGE */
+.newBadge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #16a34a;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.5px;
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState,useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
+
 import api from "../apis/api";
 import Navbar from "../navabar/navbar";
 import "./internships.css";
@@ -196,6 +197,7 @@ console.log("data",editData)
   return (
     <>
       <Navbar />
+      
 
       <section className="internship-section">
         <h2 className="internship-title">
@@ -228,7 +230,7 @@ console.log("data",editData)
                       <span key={i}>{t.trim()}</span>
                     ))}
                 </div>
-
+<div className="internship-actions">
                 {applied ? (
                   <span
                     className={`status-badge ${applied.status.toLowerCase()}`}
@@ -243,7 +245,7 @@ console.log("data",editData)
                     Apply Now →
                   </button>
                   
-                )}
+                )}</div>
 
 {/* 
   {Intership_ACTIONS[role].map((action) => (

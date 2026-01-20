@@ -20,8 +20,8 @@ const Sidebar = ({ activePage }) => {
   const menuItems = [
     { name: 'Dashboard', icon: <FiHome />, path: '/admin' },
     { name: 'Users', icon: <FiUsers />, path: '/admin/users' },
-    { name: 'Courses', icon: <FiBookOpen />, path: '/admin/course_enrolled_users' },
-    { name: 'Internships', icon: <FiBriefcase />, path: '/admin/internship_applications' },
+    { name: 'Courses', icon: <FiBookOpen />, path: '/courses_create' },
+    { name: 'Internships', icon: <FiBriefcase />, path: '/admin/create_internship' },
 
     {
       name: 'Applications',
