@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  
   font-size: calc(10px + 2vmin);
   color: white;
 }
@@ -35,4 +35,15 @@
   to {
     transform: rotate(360deg);
   }
+}
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+
+html, body {
+  height: 100%;
+  overflow-y: auto; /* ensure vertical scroll works */
+  scroll-behavior: smooth; /* optional, makes scrolling smooth */
 }

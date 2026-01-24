@@ -1,5 +1,5 @@
 .hero {
-  min-height: 90vh;
+  height: 35vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,17 +10,17 @@
 }
 
 .heroContent {
-  max-width: 900px;
+  justify-items: center;
 }
 
 .heroTitle {
-  font-size: 52px;
+  font-size: 40px;
   font-weight: 800;
   line-height: 1.2;
 }
 
 .heroTitle span {
-  color: #facc15;
+  color: #010003;
 }
 
 .heroSubtitle {
@@ -39,10 +39,13 @@
 }
 
 .heroButtons {
-  margin-top: 28px;
+  margin-top: 2px;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap; /* buttons stack if needed */
+  
+  gap: 20px;
+  flex-direction: row; /* buttons stack if needed */
+  width: 400px;
 }
 
 .primary {
@@ -75,8 +78,26 @@
 /* ------------- TABLET: max-width 1024px ------------- */
 @media (max-width: 1024px) {
   .heroTitle {
-    font-size: 42px;
+    font-size: 35px;
   }
+
+
+
+  .hero {
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #a8c6ee, #1e40af);
+  color: white;
+  text-align: center;
+  padding: 5px 20px;
+}
+
+.heroContent {
+  justify-items: center;
+}
+
 
   .heroSubtitle {
     font-size: 16px;
@@ -96,7 +117,12 @@
 @media (max-width: 640px) {
   .hero {
     padding: 40px 16px;
+    height: auto;
   }
+
+
+
+
 
   .heroTitle {
     font-size: 28px;
@@ -104,7 +130,7 @@
   }
 
   .heroSubtitle {
-    font-size: 14px;
+    font-size: 15px;
     max-width: 90%;
   }
 
@@ -117,6 +143,7 @@
   .heroButtons {
     flex-direction: column;
     gap: 12px;
+    width: 100%;
   }
 
   .primary,
@@ -128,4 +155,9 @@
   .heroStats {
     font-size: 12px;
   }
+
+
+
+
+
 }

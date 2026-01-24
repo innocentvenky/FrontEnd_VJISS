@@ -1,0 +1,100 @@
+/* Container */
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f6f9;
+}
+
+/* Form card */
+.form {
+  background: #ffffff;
+  padding: 32px;
+  width: 100%;
+  max-width: 520px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Title */
+.title {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #1f2937;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* Form group */
+.formGroup {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels */
+.label {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #374151;
+}
+
+/* Inputs & selects */
+.input,
+.select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+/* Focus */
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* Grid (2 columns) */
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Button */
+.button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.1s ease;
+}
+
+.button:hover {
+  background: #1e40af;
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .grid2 {
+    grid-template-columns: 1fr;
+  }
+
+  .form {
+    padding: 24px;
+  }
+}

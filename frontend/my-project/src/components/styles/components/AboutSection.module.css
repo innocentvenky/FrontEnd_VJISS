@@ -85,6 +85,7 @@
   font-weight: 600;
 }
 
+
 /* ---------------- TABLET: max-width 1024px ---------------- */
 @media (max-width: 1024px) {
   .container {
@@ -110,10 +111,10 @@
 
 .imagePlaceholder {
   width: 100%;
-  max-width: 380px;
-  height: 320px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #2563eb, #1e40af);
+  max-width: 420px;
+  height: 250px;
+  border-radius: 20px;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -128,9 +129,9 @@
 }
 
 .image {
-  width: 80%;
-  height: auto;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+ 
 }
 
 
@@ -166,6 +167,6 @@
 
   .imagePlaceholder {
     max-width: 280px;
-    height: 240px;
+    height: 200px;
   }
 }

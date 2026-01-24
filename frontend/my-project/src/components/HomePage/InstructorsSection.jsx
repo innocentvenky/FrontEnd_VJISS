@@ -1,36 +1,30 @@
-import React from "react";
-import styles from "../styles/components/InstructorsSection.module.css";
 
-const INSTRUCTORS = [
-  {
-    name: "John Doe",
-    role: "Full Stack Developer",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
-  },
-  {
-    name: "Jane Smith",
-    role: "React & Frontend Expert",
-    image: "https://randomuser.me/api/portraits/women/44.jpg",
-  },
-  {
-    name: "Michael Lee",
-    role: "Python & Django Specialist",
-    image: "https://randomuser.me/api/portraits/men/55.jpg",
-  },
-  {
-    name: "Emily Clark",
-    role: "UI/UX Designer",
-    image: "https://randomuser.me/api/portraits/women/66.jpg",
-  },
-];
+import api from '../apis/api';
+import styles from "../styles/components/InstructorsSection.module.css";
+import { useState,useEffect } from "react";
+const imageBaseUrl = process.env.REACT_APP_IMAGE_BASE_URL;
 
 const InstructorsSection = () => {
+  const [INSTRUCTORS, setINSTRUCTORS] = useState([]);
+  useEffect(() => {
+    const fetchInstructors = async () => {
+      try { 
+        const response = await api.get('/VJISS/trainer_details/');
+        setINSTRUCTORS(response.data);
+        console.log("Instructors Data:", response.data);
+      } catch (error) {
+        console.error('Error fetching instructors:', error);
+      } 
+    };
+
+    fetchInstructors();
+  }, []);
+
   return (
     <section className={styles.instructors}>
       <div className={styles.container}>
         {/* Header */}
         <div className={styles.header}>
-          <span className={styles.badge}>Our Experts</span>
           <h2 className={styles.title}>
             Learn from <span>Industry Professionals</span>
           </h2>
@@ -45,12 +39,16 @@ const InstructorsSection = () => {
           {INSTRUCTORS.map((instructor, index) => (
             <div className={styles.card} key={index}>
               <img
-                src={instructor.image}
+                src={instructor.trainer_image.startsWith("http")
+                  ? instructor.trainer_image
+                  : `${imageBaseUrl}${instructor.trainer_image}`}
                 alt={instructor.name}
                 className={styles.avatar}
               />
-              <h3 className={styles.name}>{instructor.name}</h3>
-              <p className={styles.role}>{instructor.role}</p>
+              <h3 className={styles.name}>{instructor.trainer_name}</h3>
+              
+              <p className={styles.role}>{instructor.trainer_title}</p>
+            <p className={styles.bio}>{instructor.trainer_bio.length>50  ? instructor.trainer_bio.substring(0, 50) + "..." : instructor.trainer_bio}</p>
             </div>
           ))}
         </div>

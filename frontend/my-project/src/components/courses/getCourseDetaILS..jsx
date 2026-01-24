@@ -7,6 +7,8 @@ import styles from "./getcourse.module.css";
 import Navbar from "../navabar/navbar";
 import EnrollButton from "./EnrollButton";
 
+const imageBaseUrl = process.env.REACT_APP_IMAGE_BASE_URL;
+
 const GetCourseDetails = () => {
   const [courseDetails, setCourseDetails] = useState(null);
     const { enrollments } = useContext(CourseContext);
@@ -87,7 +89,7 @@ const GetCourseDetails = () => {
       {/* Course Header */}
       <div className={styles.header}>
         <img
-          src={courseDetails.course_logo}
+          src={imageBaseUrl + courseDetails.course_logo}
           alt={courseDetails.course_name}
           className={styles.logo}
         />

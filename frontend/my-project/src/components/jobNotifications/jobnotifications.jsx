@@ -4,7 +4,7 @@ import "./jobNotifications.css";
 import api from "../apis/api";
 import Navbar from "../navabar/navbar";
 import { useNavigate } from "react-router-dom";
-
+const imageBaseUrl = process.env.REACT_APP_IMAGE_BASE_URL;
 const JobNotifications = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -78,7 +78,7 @@ useEffect(() => {
 
             <div className="job-header">
               <img
-                src={job.company_logo}
+                src={imageBaseUrl + job.company_logo}
                 alt={job.company_name}
                 className="company-logo"
               />

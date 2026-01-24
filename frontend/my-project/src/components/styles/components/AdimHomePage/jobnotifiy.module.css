@@ -1,0 +1,103 @@
+/* jobnotify.module.css */
+
+/* Form wrapper */
+.jobform {
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 32px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: "Inter", sans-serif;
+}
+
+/* Labels */
+.jobform label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: #1f2937;
+}
+
+/* Inputs and textarea */
+.jobform input[type="text"],
+.jobform input[type="url"],
+.jobform input[type="date"],
+.jobform textarea,
+.jobform input[type="file"] {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  background-color: #ffffff;
+}
+
+.jobform input[type="text"]:focus,
+.jobform input[type="url"]:focus,
+.jobform input[type="date"]:focus,
+.jobform textarea:focus,
+.jobform input[type="file"]:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+  outline: none;
+}
+
+/* Textarea */
+.jobform textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Submit button */
+.jobform button[type="submit"] {
+  padding: 14px 20px;
+  background-color: #4f46e5;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.jobform button[type="submit"]:hover {
+  background-color: #4338ca;
+  transform: translateY(-2px);
+}
+
+.jobform button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* File input */
+.jobform input[type="file"] {
+  padding: 6px;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .jobform {
+    padding: 24px;
+    gap: 16px;
+  }
+
+  .jobform input[type="text"],
+  .jobform input[type="url"],
+  .jobform input[type="date"],
+  .jobform textarea {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .jobform button[type="submit"] {
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+}

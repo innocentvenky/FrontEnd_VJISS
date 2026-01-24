@@ -7,6 +7,9 @@ import Navbar from "../navabar/navbar";
 import EnrollButton from "./EnrollButton";
 import styles from "./courses.module.css";
 
+const imageBaseUrl = process.env.REACT_APP_IMAGE_BASE_URL;
+
+
 const Courses = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,6 +36,7 @@ const Courses = () => {
       try {
         const { data } = await api.get("/VJISS/course_details/");
         setCourses(Array.isArray(data) ? data : []);
+        console.log(data);
       } catch (err) {
         setError("Failed to load courses");
       } finally {
@@ -108,13 +112,18 @@ const Courses = () => {
               className={styles["course-card"]}
             >
               <img
-                src={course.course_logo}
+                src={imageBaseUrl + course.course_logo}
                 alt={course.course_name}
                 className={styles["course-logo"]}
               />
 
               <h3>{course.course_name}</h3>
-              <p>{course.course_description}</p>
+              <p>{course.course_description.length > 100
+                  ? course.course_description.slice(0, 100) + "..."
+                  : course.course_description }
+
+              </p>
+
 
               <div className={styles["course-actions"]}>
                 <EnrollButton courseId={course.course_id} />

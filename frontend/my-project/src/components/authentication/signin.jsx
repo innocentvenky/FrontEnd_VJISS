@@ -113,7 +113,7 @@ const sendSignupOtp = async () => {
   }
 
   try {
-    await axios.post("http://127.0.0.1:8000/VJISS/send-otp/", {
+    await axios.post("https://vjiss-compnay.onrender.com/VJISS/send-otp/", {
       email: formData.email,
     });
 
@@ -174,7 +174,7 @@ const sendOtp = async () => {
 
   setCheckingUser(true);
   try {
-    await axios.post("http://127.0.0.1:8000/VJISS/send-otp/", {
+    await axios.post("https://vjiss-compnay.onrender.com/VJISS/send-otp/", {
       email: forgotValue,
     });
 
@@ -221,7 +221,7 @@ const formatTime = (seconds) => {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/VJISS/login/",
+        "https://vjiss-compnay.onrender.com/VJISS/login/",
         {
           email: formData.email,
           password: formData.password,
@@ -274,7 +274,7 @@ const updatepassword = async () => {
   }
 
   try {
-    await axios.put("http://127.0.0.1:8000/VJISS/update_password/", {
+    await axios.put("https://vjiss-compnay.onrender.com/VJISS/update_password/", {
       email: forgotValue,
       new_password: newPassword,
       otp: otp,
@@ -318,7 +318,7 @@ const handleSignUpSubmit = async (e) => {
 
   try {
     await axios.post(
-      "http://127.0.0.1:8000/VJISS/create_user/",
+      "https://vjiss-compnay.onrender.com/VJISS/create_user/",
       { ...formData, otp:otp }
     );
 

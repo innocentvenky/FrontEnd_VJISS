@@ -1,8 +1,8 @@
 
-import React, { useState } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import AuthProvider from "./components/contexts/AuthContext";
-import TokenNotifier from "./components/alerts/loginalert";
+//import TokenNotifier from "./components/alerts/loginalert";
 import Dashboard from "./components/DashBoard/dashboard";
 import Courses from "./components/courses/courses";
 import NavbarProvider from "./components/contexts/navbarContext";
@@ -23,10 +23,31 @@ import GetCourseDetails from "./components/courses/getCourseDetaILS.";
 import Carousal from "./components/caurosel";
 import BatchDetails from "./components/newbacths/newbacths";
 import { CourseProvider } from "./components/contexts/enrollContext";
+import NewBatchForm from "./components/Admin/create_new-batch";
+import JobNotificationForm from "./components/Admin/createJobnotifiy";
+import AdminRoute from "./components/Routes/AdminRoute";
+import ProtectedRoute from "./components/Routes/ProtectedRoute";
+import Forbidden from "./components/Routes/forbidden";
+//import { LoadingProvider } from "./components/contexts/LoadingContext";
+
+import { registerLoadingSetter } from "./components/Loading/loadingHelper";
+import LoadingSpinner from "./components/Loading/loading";
+import { LoadingProvider,LoadingContext} from "./components/contexts/LoadingContext";
+
+// const LoaderBridge = () => {
+//   const { loading, setLoading } = useContext(LoadingContext);
+
+//   useEffect(() => {
+//     registerLoadingSetter(setLoading);
+//   }, [setLoading]);
+
+//   return loading ? <LoadingSpinner /> : null;
+// };
+
 
 function App() {
   const location = useLocation();
-    const [blur, setBlur] = useState(false);
+  const [blur, setBlur] = useState(false);
 
   const hideBackBtnRoutes = [
     "/",
@@ -36,61 +57,182 @@ function App() {
     "/forgotpassword",
   ];
 
-  const hideNotifierRoutes = ["/login", "/signup", "/forgotpassword"];
-
+  //const hideNotifierRoutes = ["/login", "/signup", "/forgotpassword"];
 
   return (
     <AuthProvider>
       <NavbarProvider>
         <CourseProvider>
-
-          {/* ✅ TOKEN NOTIFIER (ONLY ONCE) */}
+          
+        
+{/* 
           {!hideNotifierRoutes.includes(location.pathname) && (
             <TokenNotifier setBlur={setBlur} />
           )}
 
-          {/* 🔙 GLOBAL BACK BUTTON */}
-          {!hideBackBtnRoutes.includes(location.pathname) && (
-            <BackButton />
-          )}
+          {!hideBackBtnRoutes.includes(location.pathname) && <BackButton />} */}
 
           <Routes>
+
+            {/* 🌐 PUBLIC */}
             <Route path="/login" element={<Auth defaultForm="login" />} />
             <Route path="/signup" element={<Auth defaultForm="signup" />} />
+            <Route path="/forgotpassword" element={<Auth defaultForm="forgotpassword" />} />
+            <Route path="/403" element={<Forbidden />} />
+
+            {/* 🔒 PROTECTED (LOGIN REQUIRED) */}
+           
+
             <Route
-              path="/forgotpassword"
-              element={<Auth defaultForm="forgotpassword" />}
+              path="/"
+              element={
+               
+                  <HomePage />
+                
+              }
             />
 
-            <Route path="/" element={<Dashboard blur={blur} setBlur={setBlur} />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/course/:id" element={<GetCourseDetails />} />
-            <Route path="/about" element={<AboutCompany />} />
-            <Route path="/internship" element={<InternshipOffers />} />
-            <Route path="/jobnotifications" element={<JobNotifications />} />
-            <Route path="/courses_create" element={<CourseWithSyllabusForm />} />
-            <Route path="/trainers" element={<Trainers />} />
-            <Route path="/home" element={<HomePage />} />
+            <Route
+              path="/courses"
+              element={
+                <ProtectedRoute>
+                  <Courses />
+                </ProtectedRoute>
+              }
+            />
 
-            <Route path="/admin" element={<AdminHome />} />
-            <Route path="/admin/users" element={<AllUsers />} />
+            <Route
+              path="/course/:id"
+              element={
+                <ProtectedRoute>
+                  <GetCourseDetails />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/about"
+              element={
+                <ProtectedRoute>
+                  <AboutCompany />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/internship"
+              element={
+                <ProtectedRoute>
+                  <InternshipOffers />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/jobnotifications"
+              element={
+                <ProtectedRoute>
+                  <JobNotifications />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/trainers"
+              element={
+                <ProtectedRoute>
+                  <Trainers />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/carousel"
+              element={
+                <ProtectedRoute>
+                  <Carousal />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/newbacth"
+              element={
+                <ProtectedRoute>
+                  <BatchDetails />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* 🔐 ADMIN ONLY */}
+            <Route
+              path="/admin"
+              element={
+                <AdminRoute>
+                  <AdminHome />
+                </AdminRoute>
+              }
+            />
+
+            <Route path="/courses_create" element={<AdminRoute><CourseWithSyllabusForm /></AdminRoute>} />
+
+            <Route
+              path="/admin/users"
+              element={
+                <AdminRoute>
+                  <AllUsers />
+                </AdminRoute>
+              }
+            />
+
             <Route
               path="/admin/internship_applications"
-              element={<InternshipApplications />}
+              element={
+                <AdminRoute>
+                  <InternshipApplications />
+                </AdminRoute>
+              }
             />
+
             <Route
               path="/admin/course_enrolled_users"
-              element={<CourseEnrolledUsers />}
+              element={
+                <AdminRoute>
+                  <CourseEnrolledUsers />
+                </AdminRoute>
+              }
             />
+
             <Route
               path="/admin/create_internship"
-              element={<CreateInternship />}
+              element={
+                <AdminRoute>
+                  <CreateInternship />
+                </AdminRoute>
+              }
             />
 
-            <Route path="/carousel" element={<Carousal />} />
-            <Route path="/newbacth" element={<BatchDetails />} />
+            <Route
+              path="/createnewbatch"
+              element={
+                <AdminRoute>
+                  <NewBatchForm />
+                </AdminRoute>
+              }
+            />
 
+            <Route
+              path="/createjobnotification"
+              element={
+                <AdminRoute>
+                  <JobNotificationForm />
+                </AdminRoute>
+              }
+            />
+
+            {/* ❌ 404 */}
             <Route path="*" element={<div>404 Not Found</div>} />
+
           </Routes>
 
         </CourseProvider>

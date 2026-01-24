@@ -1,12 +1,32 @@
-import React from 'react';
+
 import styles from "../styles/components/InternshipSection.module.css";
+import api from '../apis/api';
+import { useEffect, useState } from "react";
+import { FaLaptopCode } from "react-icons/fa";
+
 
 const InternshipSection = () => {
+  const [internships, setInterships] = useState([]);
+
+  useEffect(() => {
+    const fetchInternships = async () => {
+      try {
+        const response = await api.get('/VJISS/internship_offers_details/');
+        setInterships(response.data);
+        console.log("sdfds",response.data);
+      } catch (error) {
+        console.error('Error fetching internships:', error);
+      }
+    };
+
+    fetchInternships();
+  }, []);
+
   return (
     <section className={styles.internships}>
       <div className={styles.container}>
         <div className={styles.header}>
-          <span className={styles.badge}>💼 Internship Opportunities</span>
+         
           <h2 className={styles.title}>
             Gain <span>Real-World Experience</span> Through Internships
           </h2>
@@ -15,32 +35,30 @@ const InternshipSection = () => {
           </p>
         </div>
 
-        <div className={styles.grid}>
-          <div className={styles.card}>
-            <div className={styles.icon}>🏢</div>
-            <h3 className={styles.cardTitle}>Tech Internships</h3>
-            <p className={styles.cardDescription}>
-              Work on web, mobile, and AI projects in a collaborative environment.
-            </p>
-          </div>
 
-          <div className={styles.card}>
-            <div className={styles.icon}>🎨</div>
-            <h3 className={styles.cardTitle}>Design Internships</h3>
-            <p className={styles.cardDescription}>
-              Gain hands-on experience in UI/UX, branding, and product design.
-            </p>
-          </div>
+     <div className={styles.grid}>
+ 
 
-          <div className={styles.card}>
-            <div className={styles.icon}>📊</div>
-            <h3 className={styles.cardTitle}>Business & Analytics</h3>
+
+        {internships.map((internship) => (
+          <div key={internship.id} className={styles.card}>
+            <div className={styles.icon}>
+    <FaLaptopCode />
+  </div>
+            <h3 className={styles.cardTitle}>{internship.internship_name}</h3>
             <p className={styles.cardDescription}>
-              Work on market research, data analysis, and strategy projects.
+              {internship.internship_description.length > 100
+                ? internship.internship_description.slice(0, 100) + "..."
+                : internship.internship_description}
             </p>
           </div>
+        ))}
         </div>
-      </div>
+
+ 
+</div>
+
+    
     </section>
   );
 };

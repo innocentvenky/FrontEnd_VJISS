@@ -2,31 +2,69 @@ import React, { useEffect, useState, useContext } from "react";
 import Navbar from "../navabar/navbar";
 import api from "../apis/api";
 import { AuthContext } from "../contexts/AuthContext";
-import "./dashboard.css";
-import { FiBookOpen, FiBriefcase, FiUsers, FiCalendar } from "react-icons/fi";
 
 
-const Dashboard = ({ blur, setBlur }) => {
+import styles from "./dashboard.module.css";
 
-console.log("Dashboard blur prop:", blur);
-  const { token, public_id } = useContext(AuthContext);
+const Dashboard = () => {
+  const { token } = useContext(AuthContext);
+ const cards = [
+    { title: "Employees", value: 128, color: "blue" },
+    { title: "Projects", value: 24, color: "green" },
+    { title: "Revenue", value: "₹12.5L", color: "purple" },
+    { title: "Profit / Loss", value: "+₹3.2L", color: "orange" },
+  ];
+
   const [stats, setStats] = useState({
     courses: 0,
     internships: 0,
     jobs: 0,
     trainers: 0,
   });
-  const [recentCourses, setRecentCourses] = useState([]);
-  const [loading, setLoading] = useState(true);
+
+  const offerings = [
+    {
+      title: "Industry-Ready Courses",
+      desc: "Professional courses designed with real-world use cases.",
+    },
+    {
+      title: "Internship Programs",
+      desc: "Hands-on experience with expert mentorship.",
+    },
+    {
+      title: "New Batch Updates",
+      desc: "Regularly starting batches with flexible schedules.",
+    },
+    {
+      title: "Job Notifications",
+      desc: "Latest openings and placement assistance.",
+    },
+    {
+      title: "Expert Trainers",
+      desc: "Learn from industry professionals with experience.",
+    },
+    {
+      title: "About Our Company",
+      desc: "Trusted training institute focused on career growth.",
+    },
+  ];
 
   useEffect(() => {
     const fetchDashboard = async () => {
       try {
-        setLoading(true);
-        const coursesRes = await api.get("/VJISS/course_details/");
-        const internshipsRes = await api.get("/VJISS/internship_offers_details/");
-        const jobsRes = await api.get("/VJISS/job_notification_details/");
-        const trainersRes = await api.get("/VJISS/trainer_details/");
+        
+
+        const [
+          coursesRes,
+          internshipsRes,
+          jobsRes,
+          trainersRes,
+        ] = await Promise.all([
+          api.get("/VJISS/course_details/"),
+          api.get("/VJISS/internship_offers_details/"),
+          api.get("/VJISS/job_notification_details/"),
+          api.get("/VJISS/trainer_details/"),
+        ]);
 
         setStats({
           courses: coursesRes.data.length,
@@ -34,82 +72,65 @@ console.log("Dashboard blur prop:", blur);
           jobs: jobsRes.data.length,
           trainers: trainersRes.data.length,
         });
-
-        setRecentCourses(
-          coursesRes.data.slice(-4).reverse()
-        );
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error("Dashboard error:", error);
       } finally {
-        setLoading(false);
+        
       }
     };
 
     fetchDashboard();
   }, []);
 
-  if (loading) return <p className="dashboard-loading">Loading dashboard...</p>;
+
 
   return (
-  
-  <>
-    <Navbar />
+    <>
+      <Navbar />
+ <div className={styles.dashboard}>
+      {/* Header */}
+      <header className={styles.header}>
+        <h1>Dashboard</h1>
+        <p>Welcome back, Admin 👋</p>
+      </header>
 
-    {/* 🔹 Blur wrapper */}
-   
-
-    <div className={`dashboard-blur-wrapper ${blur ? "blurred" : ""}`}>
-      <div className="dashboard-container">
-        {/* ================= WELCOME ================= */}
-        <header className="dashboard-header">
-          <h1>Welcome Back!</h1>
-          <p>Explore your courses, internships, and more.</p>
-        </header>
-
-        {/* ================= QUICK STATS ================= */}
-        <section className="stats-grid">
-          <div className="stat-card courses">
-            <FiBookOpen className="stat-icon" />
-            <div className="stat-info">
-              <h3>{stats.courses}</h3>
-              <p>Courses</p>
-            </div>
+      {/* Stats Cards */}
+      <div className={styles.cardGrid}>
+        {cards.map((card, index) => (
+          <div
+            key={index}
+            className={`${styles.card} ${styles[card.color]}`}
+          >
+            <h3>{card.title}</h3>
+            <span>{card.value}</span>
           </div>
+        ))}
+      </div>
 
-          <div className="stat-card internships">
-            <FiBriefcase className="stat-icon" />
-            <div className="stat-info">
-              <h3>{stats.internships}</h3>
-              <p>Internships</p>
-            </div>
-          </div>
+      {/* Main Sections */}
+      <div className={styles.sections}>
+        <div className={styles.section}>
+          <h2>Recent Employees</h2>
+          <ul>
+            <li>Ravi Kumar – Python Developer</li>
+            <li>Anitha – Frontend Developer</li>
+            <li>Vijay – DevOps Engineer</li>
+          </ul>
+        </div>
 
-          <div className="stat-card jobs">
-            <FiCalendar className="stat-icon" />
-            <div className="stat-info">
-              <h3>{stats.jobs}</h3>
-              <p>Job Notifications</p>
-            </div>
-          </div>
-
-          <div className="stat-card trainers">
-            <FiUsers className="stat-icon" />
-            <div className="stat-info">
-              <h3>{stats.trainers}</h3>
-              <p>Trainers</p>
-            </div>
-          </div>
-        </section>
+        <div className={styles.section}>
+          <h2>Active Projects</h2>
+          <ul>
+            <li>Learning Management System</li>
+            <li>Company ERP Portal</li>
+            <li>AI Chatbot Integration</li>
+          </ul>
+        </div>
       </div>
     </div>
-
-    
-
-
-    
-  </>
-);
-
+      
+    </>
+  );
 };
 
 export default Dashboard;

@@ -6,30 +6,23 @@ const Hero = () => {
     <section className={styles.hero}>
       <div className={styles.heroContent}>
         <h1 className={styles.heroTitle}>
-          Learn <span>Industry-Ready Skills</span>
+          VJ <span>Innovative Software Solutions Pvt Ltd</span>
           <br />
-          Build Your Career
+          Build Your Career With Us
         </h1>
 
         <p className={styles.heroSubtitle}>
-          Live instructor-led courses with real projects, certification,
-          and job-oriented training.
+  Join thousands of learners at VJ Innovative Software Solutions to master Python, Full-Stack, AI & Cybersecurity.
         </p>
 
-        <div className={styles.heroFeatures}>
-          <span>🎓 Expert Trainers</span>
-          <span>💼 Job Assistance</span>
-          <span>📜 Certification</span>
-        </div>
+       
 
         <div className={styles.heroButtons}>
           <button className={styles.primary}>Explore Courses</button>
-          <button className={styles.secondary}>Free Demo Class</button>
+          <button className={styles.secondary}>Contact Us</button>
         </div>
 
-        <div className={styles.heroStats}>
-          ⭐ 4.8/5 Rating · 👨‍🎓 10,000+ Students · 📚 50+ Courses
-        </div>
+
       </div>
     </section>
   );

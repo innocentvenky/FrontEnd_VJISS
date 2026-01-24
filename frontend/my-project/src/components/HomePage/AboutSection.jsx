@@ -7,7 +7,7 @@ const AboutSection = () => {
       <div className={styles.container}>
         {/* Left Content */}
         <div className={styles.content}>
-          <span className={styles.badge}>About Us</span>
+        
 
           <h2 className={styles.title}>
             Empowering Students with <span>Industry-Ready Skills</span>
@@ -33,7 +33,7 @@ const AboutSection = () => {
         <div className={styles.imageWrapper}>
        <div className={styles.imagePlaceholder}>
   <img
-    src="/images/learning-illustration.svg"
+    src="/images.jpg"
     alt="Learning Illustration"
     className={styles.image}
   />

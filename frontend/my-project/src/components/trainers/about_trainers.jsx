@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import api from "../apis/api";
 import Navbar from "../navabar/navbar";
 import "./trainers.css";
-
+const imageBaseUrl = process.env.REACT_APP_IMAGE_BASE_URL;
+console.log("Image Base URL:", imageBaseUrl);
 const Trainers = () => {
   const [trainers, setTrainers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -37,36 +38,27 @@ const Trainers = () => {
         <div className="trainers-grid">
           {trainers.map((trainer) => (
             <div className="trainer-card" key={trainer.trainer_id}>
-              <img
-                src={
-                  trainer.trainer_image.startsWith("http")
-                    ? trainer.trainer_image
-                    : `http://127.0.0.1:8000${trainer.trainer_image}`
-                }
-                alt={trainer.trainer_name}
-                className="trainer-image"
-              />
+<img
+  className="trainer-image"
+  src={`${process.env.REACT_APP_IMAGE_BASE_URL}image/upload/c_fill,g_face,w_240,h_240/${trainer.trainer_image.replace(
+    "image/upload/",
+    ""
+  )}`}
+  alt={trainer.trainer_name}
+/>
 
               <h3 className="trainer-name">{trainer.trainer_name}</h3>
               <p className="trainer-title">{trainer.trainer_title}</p>
 
               <p className="trainer-bio">
-                {trainer.trainer_bio.length > 300
-                  ? trainer.trainer_bio.slice(0, 300) + "..."
+                {trainer.trainer_bio.length > 1000
+                  ? trainer.trainer_bio.slice(0, 1000) + "..."
                   : trainer.trainer_bio}
               </p>
             </div>
           ))}
                   {/* ➕ ADD TRAINER BUTTON */}
-<div className="add-trainer-wrapper">
-  <button
-    className="add-trainer-btn"
-    onClick={() => alert("Open Add Trainer Form")}
-    title="Add New Trainer"
-  >
-    +
-  </button>
-</div>
+
         </div>
 
 

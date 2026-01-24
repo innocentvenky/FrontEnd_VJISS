@@ -1,90 +1,75 @@
-/* ==================== PAGE CONTAINER ==================== */
+/* ==================== BASE / DESKTOP ==================== */
 .container {
   max-width: 1200px;
   margin: 40px auto;
   padding: 20px;
   font-family: "Inter", Arial, sans-serif;
-  color: #1f2937;
   background-color: #f8fafc;
+  color: #1f2937;
 }
 
-/* ==================== HEADER ==================== */
+/* ---------- HEADER ---------- */
 .header {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 24px;
   margin-bottom: 40px;
-  flex-wrap: wrap;
 }
 
 .logo {
-  width: 80px;
-  height: 80px;
+  width: 110px;
+  height: 110px;
   object-fit: contain;
   border-radius: 8px;
   border: 1px solid #e5e7eb;
-  background: #ffffff;
+  background-color: #ffffff;
 }
 
 .headerInfo {
   flex: 1;
-  min-width: 220px;
 }
 
 .headerInfo h1 {
   font-size: 28px;
   font-weight: 700;
-  margin-bottom: 6px;
   color: #111827;
+  margin-bottom: 6px;
 }
 
 .description {
+  font-size: 15px;
   color: #6b7280;
   margin-bottom: 12px;
-  font-size: 15px;
-  line-height: 1.5;
 }
 
 .meta {
   display: flex;
-  flex-wrap: wrap;
   gap: 20px;
   font-size: 14px;
   color: #374151;
 }
 
-/* ==================== SYLLABUS SECTION ==================== */
+/* ---------- SYLLABUS ---------- */
 .syllabusSection {
-  display: flex;
-  justify-content: center; /* center content on desktop */
-  gap: 20px;
-  flex-wrap: wrap;
   margin-bottom: 40px;
-  padding: 0 10px;
 }
 
 .syllabusSection h2 {
-  width: 100%;
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  color: #1f2937;
   text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
 .syllabusList {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  width: 100%;
-  max-width: 900px; /* control desktop width */
 }
 
-/* ===== SYLLABUS CARD ===== */
 .syllabusCard {
   background: #ffffff;
-  border-radius: 12px;
   padding: 20px;
+  border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -94,18 +79,10 @@
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
 }
 
-/* Module Header */
-.moduleHeader {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-bottom: 10px;
-}
-
 .moduleHeader h4 {
   font-size: 14px;
   font-weight: 600;
-  color: #2563eb; /* corporate blue */
+  color: #2563eb;
 }
 
 .moduleHeader h3 {
@@ -114,77 +91,82 @@
   color: #111827;
 }
 
-/* Module description */
 .syllabusCard p {
   font-size: 14px;
   color: #4b5563;
-  margin-bottom: 8px;
   line-height: 1.6;
 }
 
-/* Level badge */
 .level {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 8px;
   font-size: 12px;
-  font-weight: 500;
   color: #2563eb;
   background-color: #e0f2fe;
-  padding: 3px 8px;
   border-radius: 6px;
-  display: inline-block;
-  margin-top: 6px;
 }
 
-/* ==================== ENROLL BUTTON ==================== */
+/* ---------- ENROLL BUTTON ---------- */
 .enrollButton {
   display: block;
-  margin: 0 auto 40px auto;
-  padding: 12px 25px;
-  background-color: #2563eb;
-  color: #ffffff;
+  margin: 0 auto 40px;
+  padding: 12px 28px;
   font-size: 16px;
   font-weight: 600;
+  background-color: #2563eb;
+  color: #ffffff;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .enrollButton:hover {
   background-color: #1e40af;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .enrollButton:disabled {
   background-color: #9ca3af;
   cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
 }
 
-/* ==================== RESPONSIVE: TABLET ==================== */
+/* ==================== TABLET ==================== */
 @media (max-width: 1024px) {
+  .container {
+    padding: 16px;
+  }
+
+  .logo {
+    width: 100px;
+    height: 100px;
+  }
+
   .headerInfo h1 {
     font-size: 26px;
   }
 
-  .syllabusSection {
-    padding: 0 20px;
+  .syllabusList {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* ==================== RESPONSIVE: MOBILE ==================== */
+/* ==================== MOBILE ==================== */
 @media (max-width: 768px) {
-  /* Stack header vertically */
+  .container {
+    margin: 20px auto;
+    padding: 12px;
+  }
+
   .header {
     flex-direction: column;
-    align-items: center;
     text-align: center;
-    gap: 10px;
   }
 
   .logo {
-    margin-bottom: 10px;
+    width: 90px;
+    height: 90px;
   }
 
   .headerInfo h1 {
@@ -197,25 +179,16 @@
 
   .meta {
     flex-direction: column;
-    gap: 8px;
-    font-size: 13px;
+    gap: 6px;
     align-items: center;
   }
 
-  /* Syllabus cards full width */
   .syllabusList {
     grid-template-columns: 1fr;
-    gap: 15px;
   }
 
-  .syllabusCard {
-    padding: 15px;
+  .enrollButton {
+    width: 100%;
+    padding: 14px;
   }
-
-  .moduleHeader h3 {
-    font-size: 15px;
-  }
-
-  
-  
 }

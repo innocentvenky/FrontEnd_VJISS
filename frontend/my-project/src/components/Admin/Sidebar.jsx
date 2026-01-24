@@ -4,6 +4,7 @@ import {
   FiHome,
   FiUsers,
   FiBookOpen,
+
   FiBriefcase,
   FiFileText,
   FiBarChart2,
@@ -20,8 +21,74 @@ const Sidebar = ({ activePage }) => {
   const menuItems = [
     { name: 'Dashboard', icon: <FiHome />, path: '/admin' },
     { name: 'Users', icon: <FiUsers />, path: '/admin/users' },
-    { name: 'Courses', icon: <FiBookOpen />, path: '/courses_create' },
-    { name: 'Internships', icon: <FiBriefcase />, path: '/admin/create_internship' },
+
+
+ {
+      name: 'Courses',
+      icon: <FiBookOpen/>,
+      dropdown: true,
+      children: [
+        {
+          name: 'create_course',
+          path: '/courses_create',
+        },
+        {
+          name: 'Courses Details',
+          path: '/courses',
+        },
+      ],
+    },
+
+
+    {
+      name: 'Newbatch',
+      icon: <FiBookOpen/>,
+      dropdown: true,
+      children: [
+        {
+          name: 'Create New Batch',
+          path: '/createnewbatch',
+        },
+        {
+          name: 'Batch Details',
+          path: '/admin/batchdetails',
+        },
+      ],
+    },
+
+    {
+      name: 'jobnotification',
+      icon: <FiBookOpen/>,
+      dropdown: true,
+      children: [
+        {
+          name: 'createjobnotification',
+          path: '/createjobnotification',
+        },
+        {
+          name: 'jobnotification Details',
+          path: '/jobnotification',
+        },
+      ],
+    },
+
+
+ {
+      name: 'Internships',
+      icon: <FiBriefcase />,
+      dropdown: true,
+      children: [
+        {
+          name: 'create Internship',
+          path: '/admin/create_internship',
+        },
+        {
+          name: 'internship Details',
+          path: '/internship',
+        },
+      ],
+    },
+
 
     {
       name: 'Applications',

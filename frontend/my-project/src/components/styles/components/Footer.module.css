@@ -133,3 +133,62 @@
     justify-content: center;
   }
 }
+
+.socials {
+  display: flex;
+  gap: 16px;
+}
+
+.socials a {
+  font-size: 24px;
+  color: #e4d3d3;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.socials a:hover {
+  transform: scale(1.1);
+}
+
+.socials a:hover svg {
+  color: #25d366; /* WhatsApp default */
+}
+
+.socials a:first-child:hover svg {
+  color: #e1306c; /* Instagram default */
+}
+
+
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  color:  #e4d3d3;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contactLink svg {
+  color: #28a745; /* call green */
+}
+
+.contactLink:hover {
+  text-decoration: underline;
+}
+
+
+.contactLinkEmail {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #f7f7f7;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contactLinkEmail svg {
+  color: #0d6efd; /* email blue */
+}
+
+.contactLinkEmail:hover {
+  text-decoration: underline;
+}
+

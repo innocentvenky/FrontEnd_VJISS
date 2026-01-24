@@ -1,4 +1,6 @@
 import React from "react";
+import { FaInstagram, FaWhatsapp,FaPhoneAlt,FaEnvelope } from "react-icons/fa";
+
 import styles from "../styles/components/Footer.module.css";
 
 const Footer = () => {
@@ -7,7 +9,7 @@ const Footer = () => {
       <div className={styles.container}>
         {/* Logo & About */}
         <div className={styles.section}>
-          <div className={styles.logo}>🎓 EduTech</div>
+          <div className={styles.logo}>🎓 VJISS</div>
           <p className={styles.description}>
             Empowering students with industry-ready skills through expert-led
             courses, hands-on projects, and career support.
@@ -29,14 +31,48 @@ const Footer = () => {
         {/* Contact */}
         <div className={styles.section}>
           <h4 className={styles.heading}>Contact Us</h4>
-          <p>Email: support@edutech.com</p>
-          <p>Phone: +91 12345 67890</p>
-          <div className={styles.socials}>
-            <a href="#" aria-label="Facebook">📘</a>
-            <a href="#" aria-label="Twitter">🐦</a>
-            <a href="#" aria-label="LinkedIn">🔗</a>
-            <a href="#" aria-label="Instagram">📸</a>
-          </div>
+         
+
+<p>
+  <a href="mailto:info@vjinnovative.co.in" className={styles.contactLinkEmail}>
+    <FaEnvelope style={{ marginRight: "8px" }} />
+    info@vjinnovative.co.in
+  </a>
+</p>
+
+
+
+
+     <p>
+  <a href="tel:8985744204" className={styles.contactLink}>
+    <FaPhoneAlt style={{ marginRight: "8px" }} />
+    8985744204
+  </a>
+</p>
+
+        <div className={styles.socials}>
+  <div className={styles.socials}>
+  <a
+    href="https://www.instagram.com/yourpage"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Instagram"
+  >
+    <FaInstagram />
+  </a>
+
+  <a
+    href="https://wa.me/919XXXXXXXXX"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="WhatsApp"
+  >
+    <FaWhatsapp />
+  </a>
+</div>
+
+</div>
+
         </div>
       </div>
 

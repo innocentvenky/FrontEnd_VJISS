@@ -32,12 +32,7 @@ const SERVICES = [
     description:
       "Recognized certificates to boost your professional profile.",
   },
-  {
-    icon: "📚",
-    title: "Lifetime Access",
-    description:
-      "Access course materials anytime, even after completion.",
-  },
+
 ];
 
 const ServicesSection = () => {
@@ -46,7 +41,6 @@ const ServicesSection = () => {
       <div className={styles.container}>
         {/* Header */}
         <div className={styles.header}>
-          <span className={styles.badge}>Our Services</span>
           <h2 className={styles.title}>
             Everything You Need to <span>Succeed</span>
           </h2>

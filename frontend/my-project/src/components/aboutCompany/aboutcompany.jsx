@@ -1,16 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import api from "../apis/api";
 import Navbar from "../navabar/navbar";
+//import { LoadingContext } from "../contexts/LoadingContext";
+//import LoadingSpinner from "../Loading/loading";
 import "./aboutcompany.css";
-
+const imageBaseUrl = process.env.REACT_APP_IMAGE_BASE_URL;
 function AboutCompany() {
   const [company, setCompany] = useState({});
-  const [loading, setLoading] = useState(true);
+  const { loading, setLoading } = useState(false);
+  
   const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchCompany = async () => {
       try {
+         
         const response = await api.get("/VJISS/company_info_details/");
         const data = response.data;
 
@@ -25,10 +29,12 @@ function AboutCompany() {
         } else {
           setCompany({});
         }
+        
       } catch (err) {
         setError(err.message || "Unable to fetch company details");
       } finally {
-        setLoading(false);
+        
+          
       }
     };
 
@@ -40,13 +46,7 @@ function AboutCompany() {
       {/* ✅ NAVBAR ALWAYS VISIBLE */}
       <Navbar />
 
-      {/* 🔄 LOADING STATE */}
-      {loading && (
-        <div className="status-container">
-          <div className="loader"></div>
-          <p>Loading company profile...</p>
-        </div>
-      )}
+     
 
       {/* ❌ ERROR STATE */}
       {!loading && error && (
@@ -63,11 +63,7 @@ function AboutCompany() {
                 {company?.company_logo && (
                   <div className="logo-container">
                     <img
-                      src={
-                        company.company_logo.startsWith("http")
-                          ? company.company_logo
-                          : `http://127.0.0.1:8000${company.company_logo}`
-                      }
+                      src={`${imageBaseUrl}${company.company_logo}`}
                       alt={company.company_name || "Company Logo"}
                       className="hero-logo"
                     />

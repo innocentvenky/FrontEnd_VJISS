@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate,useLocation } from "react-router-dom";
 import feather from "feather-icons";
 import { NavbarContext } from "../contexts/navbarContext";
+
 import styles from "./navbar.module.css";
 
 const Navbar = () => {
@@ -24,9 +25,9 @@ const Navbar = () => {
     <nav className={styles.navbar}>
       <div className={styles.navContainer}>
         <div className={styles.logo} onClick={() => goTo("/")}>
-          <img src={`${process.env.PUBLIC_URL}/vjiss.ico`
-} alt="Logo" />
-          <span>VJ Innovative</span>
+          <img src={`${process.env.PUBLIC_URL}/vjiss.ico`} alt="Logo" />
+           <h1 className={styles.main_title}>VJISS </h1>
+           
         </div>
 
         {/* Desktop Menu */}

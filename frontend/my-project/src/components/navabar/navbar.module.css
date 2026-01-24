@@ -243,3 +243,17 @@
     display: flex;
   }
 }
+.main_title {
+  font-size: 25px;
+  font-weight: 550;
+  margin-bottom: 12px;
+
+  font-family: 'Silver Editorial Italic';
+
+  /* Gradient text */
+  background: linear-gradient(179deg, #bfbd7f, #1bacbb, #392e05, #797770, #917420);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

@@ -36,11 +36,20 @@ const [public_id, setPublicId] = useState(
     
   };
 
-  const logout = () => {
-    localStorage.clear();
-    setToken(null);
-    setIs_superuser(null);
-  };
+  
+const logout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("admin");
+  localStorage.removeItem("emp");
+  localStorage.removeItem("publicId");
+
+  setToken(null);
+  setIs_superuser(false);
+  setIs_staff(false);
+  setPublicId(null);
+};
+
+
 
   return (
     <AuthContext.Provider value={{ token, is_superuser, login, logout,public_id,is_staff}}>

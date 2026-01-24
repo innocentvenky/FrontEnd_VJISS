@@ -46,10 +46,11 @@
 
 /* Grid */
 .grid {
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(4, 1fr);
   gap: 32px;
   justify-items: center;
+  justify-content: center;
 }
 
 /* Instructor Card */
@@ -76,17 +77,23 @@
 }
 
 .name {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 30px;
+  font-weight: 900;
   color: #0f172a;
   margin-bottom: 6px;
 }
 
 .role {
-  font-size: 14px;
-  color: #475569;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
 }
 
+.bio {
+  font-size: 14px;
+  font-weight: 500;
+  color: #042a5f;
+}
 /* Responsive */
 @media (max-width: 1024px) {
   .grid {
