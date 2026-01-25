@@ -105,7 +105,7 @@ const sendSignupOtp = async () => {
   }
  setSignupOtpSent(true);
   try {
-    await axios.post("https://vjiss-compnay.onrender.com/VJISS/send-otp/", {
+    await axios.post("https://vjinnovative-company.onrender.com/VJISS/send-otp/", {
       email: formData.email,
     });
 
@@ -246,7 +246,7 @@ const handleSignUpSubmit = async (e) => {
 
   try {
     await axios.post(
-      "https://vjiss-compnay.onrender.com/VJISS/create_user/",
+      "https://vjinnovative-company.onrender.com/VJISS/create_user/",
       { ...formData, otp:otp }
     );
 

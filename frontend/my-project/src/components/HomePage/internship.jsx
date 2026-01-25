@@ -2,12 +2,13 @@
 import styles from "../styles/components/InternshipSection.module.css";
 import api from '../apis/api';
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaLaptopCode } from "react-icons/fa";
 
 
 const InternshipSection = () => {
   const [internships, setInterships] = useState([]);
-
+const navigate=useNavigate()
   useEffect(() => {
     const fetchInternships = async () => {
       try {
@@ -41,7 +42,7 @@ const InternshipSection = () => {
 
 
         {internships.map((internship) => (
-          <div key={internship.id} className={styles.card}>
+          <div key={internship.id}  onClick={()=>navigate("/internship")} className={styles.card}>
             <div className={styles.icon}>
     <FaLaptopCode />
   </div>

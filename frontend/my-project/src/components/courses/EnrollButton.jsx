@@ -17,10 +17,10 @@ const EnrollButton = ({ courseId }) => {
   if (status === "Pending") {
     text = "ENROLLED";
     disabled = true;
-  } else if (status === "Interested") {
+  } else if (status === "Enrolled") {
     text = "ENROLLED";
     disabled = true;
-  } else if (status === "NotInterested") {
+  } else if (status === "Dropped") {
     text = "ENROLL";
     disabled = false;
   }

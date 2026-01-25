@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../styles/components/hero.module.css";
 
 const Hero = () => {
+  const navigate=useNavigate()
   return (
     <section className={styles.hero}>
       <div className={styles.heroContent}>
@@ -18,8 +20,8 @@ const Hero = () => {
        
 
         <div className={styles.heroButtons}>
-          <button className={styles.primary}>Explore Courses</button>
-          <button className={styles.secondary}>Contact Us</button>
+          <button  onClick={()=>navigate("/courses")} className={styles.primary}>Explore Courses</button>
+          <button  onClick={()=>navigate("/about")} className={styles.secondary}>Contact Us</button>
         </div>
 
 

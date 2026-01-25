@@ -9,23 +9,24 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const setLoading = getLoadingSetter();
-    setLoading?.(true); // 🔥 START LOADER
+    setLoading?.(true);
 
     const token = localStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
 
-    // ✅ Set JSON only if NOT FormData
+    // ✅ JSON only for non-FormData
     if (!(config.data instanceof FormData)) {
       config.headers["Content-Type"] = "application/json";
+    } else {
+      delete config.headers["Content-Type"]; // 🔥 IMPORTANT
     }
 
     return config;
   },
   (error) => {
-    const setLoading = getLoadingSetter();
-    setLoading?.(false); // ❌ STOP LOADER ON ERROR
+    getLoadingSetter()?.(false);
     return Promise.reject(error);
   }
 );
@@ -33,44 +34,22 @@ api.interceptors.request.use(
 /* ================= RESPONSE ================= */
 api.interceptors.response.use(
   (response) => {
-    const setLoading = getLoadingSetter();
-    setLoading?.(false); // ✅ STOP LOADER
+    getLoadingSetter()?.(false);
     return response;
   },
   (error) => {
-    const setLoading = getLoadingSetter();
-    setLoading?.(false); // ❌ STOP LOADER
+    getLoadingSetter()?.(false);
+
+    // 🟢 TREAT EMPTY SUCCESS AS SUCCESS
+    if (
+      error.response &&
+      [200, 201, 204].includes(error.response.status)
+    ) {
+      return Promise.resolve(error.response);
+    }
+
     return Promise.reject(error);
   }
 );
 
 export default api;
-
-
-
-
-// import axios from "axios";
-
-// const api = axios.create({
-//   baseURL: "https://vjiss-compnay.onrender.com/",
-// });
-
-// api.interceptors.request.use(
-//   (config) => {
-//     const token = localStorage.getItem("token");
-
-//     if (token) {
-//       config.headers.Authorization = `Bearer ${token}`;
-//     }
-
-//     // ✅ SET Content-Type ONLY IF NOT FormData
-//     if (!(config.data instanceof FormData)) {
-//       config.headers["Content-Type"] = "application/json";
-//     }
-
-//     return config;
-//   },
-//   (error) => Promise.reject(error)
-// );
-
-// export default api;

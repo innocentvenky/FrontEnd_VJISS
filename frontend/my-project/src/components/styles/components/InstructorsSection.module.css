@@ -110,3 +110,63 @@
     font-size: 28px;
   }
 }
+
+
+
+/* ================= RESPONSIVE FIXES (NO EXISTING CHANGES) ================= */
+
+/* Improve grid wrapping for flex layout */
+
+/* Tablet (≤1024px) */
+@media (max-width: 1024px) {
+  .grid {
+  flex-wrap: wrap;
+}
+
+  .card {
+    max-width: 45%;
+  }
+
+  .name {
+    font-size: 24px;
+  }
+
+  .avatar {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+/* Mobile (≤640px) */
+@media (max-width: 640px) {
+  .grid {
+  flex-wrap: wrap;
+}
+
+  .instructors {
+    padding: 60px 16px;
+  }
+
+  .card {
+    max-width: 100%;
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    object-position: center top; /* ✅ face-focused */
+  }
+
+  .name {
+    font-size: 22px;
+  }
+
+  .role {
+    font-size: 14px;
+  }
+
+  .bio {
+    font-size: 13px;
+  }
+}

@@ -53,7 +53,7 @@ const Footer = () => {
         <div className={styles.socials}>
   <div className={styles.socials}>
   <a
-    href="https://www.instagram.com/yourpage"
+    href="https://www.instagram.com/vj_innovative?igsh=MW85ZzZhZzNzMnpjbQ%3D%3D"
     target="_blank"
     rel="noopener noreferrer"
     aria-label="Instagram"
@@ -62,7 +62,7 @@ const Footer = () => {
   </a>
 
   <a
-    href="https://wa.me/919XXXXXXXXX"
+    href="https://wa.me/918985744204"
     target="_blank"
     rel="noopener noreferrer"
     aria-label="WhatsApp"

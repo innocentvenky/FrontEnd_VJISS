@@ -63,7 +63,7 @@ const ForgotPassword = ({ goToLogin }) => {
     if (!email) return alert("Enter email");
     setOtpSent(true);
     try {
-      await axios.post("https://vjiss-compnay.onrender.com/VJISS/send-otp/", { email });
+      await axios.post("https://vjinnovative-company.onrender.com/VJISS/send-otp/", { email });
       setOtp("");
       startOtpCountdown();
       alert("OTP sent");
@@ -78,7 +78,7 @@ const ForgotPassword = ({ goToLogin }) => {
     if (newPassword !== confirmPassword) return alert("Passwords do not match");
 
     try {
-      await axios.put("https://vjiss-compnay.onrender.com/VJISS/update_password/", {
+      await axios.put("https://vjinnovative-company.onrender.com/VJISS/update_password/", {
         email,
         otp,
         new_password: newPassword,

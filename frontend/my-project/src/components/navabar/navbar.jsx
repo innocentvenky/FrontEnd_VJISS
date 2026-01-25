@@ -35,8 +35,8 @@ const Navbar = () => {
           {[
             ["/", "Home"],
             ["/courses", "Courses"],
-            ["/internship", "Internship"],
             ["/newbacth", "New Batch"],
+            ["/internship", "Internship"],
             ["/jobnotifications", "Job Notifications"],
             ["/trainers", "Trainers Info"],
             ["/about", "About"],
@@ -78,8 +78,8 @@ const Navbar = () => {
         <div className={styles.mobileMenu}>
           {[
             ["/", "Home"],
-            ["/newbacth", "New Batch"],
             ["/courses", "Courses"],
+            ["/newbacth", "New Batch"],
             ["/internship", "Internship"],
             ["/jobnotifications", "Job Notifications"],
             ["/trainers", "Trainers Info"],

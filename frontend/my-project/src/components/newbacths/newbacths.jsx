@@ -1,144 +1,276 @@
 import React, { useState, useEffect, useContext } from "react";
 import api from "../apis/api";
 import { AuthContext } from "../contexts/AuthContext";
-import { CourseContext } from "../contexts/enrollContext";
+import { useNavigate } from "react-router-dom";
+
 import styles from "./BatchDetails.module.css";
 import Navbar from "../navabar/navbar";
-import EnrollButton from "../courses/EnrollButton";
 
 const BatchDetails = () => {
   const [batches, setBatches] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [enrollments, setEnrollments] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  // 🔵 clicked / active batch
+  const [applyingId, setApplyingId] = useState(null);
   const [activeBatchId, setActiveBatchId] = useState(null);
+  const [showApplied, setShowApplied] = useState(false);
 
-  const { enrollments } = useContext(CourseContext);
-  const { token, logout } = useContext(AuthContext);
+  const { token, logout, public_id } = useContext(AuthContext);
+  const navigate = useNavigate();
 
+  /* ----------------------------
+     Fetch batches + enrollments
+  -----------------------------*/
   useEffect(() => {
-    const fetchBatches = async () => {
-      if (!token) {
-        logout();
-        return;
-      }
+    if (!token) {
+      logout();
+      return;
+    }
 
+    const fetchData = async () => {
       try {
         setLoading(true);
-        const { data } = await api.get("/VJISS/batch_details/");
-        setBatches(data);
+
+        const [batchRes, enrollRes] = await Promise.all([
+          api.get("/VJISS/batch_details/"),
+          api.get("/VJISS/batch_enrollment_details/"),
+        ]);
+
+        setBatches(batchRes.data);
+
+        const myEnrollments = enrollRes.data.filter(
+          (e) => e.student.public_id === public_id
+        );
+        setEnrollments(myEnrollments);
       } catch (err) {
         console.error(err);
-        setError("Failed to load batches.");
+        setError("Failed to load data");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchBatches();
-  }, [token, logout]);
+    fetchData();
+  }, [token, logout, public_id]);
 
+  /* ----------------------------
+     Helpers
+  -----------------------------*/
   const isNewbatch = (startDate) => {
     if (!startDate) return false;
-
-    const today = new Date();
-    const batchDate = new Date(startDate);
-    const diffDays = (batchDate - today) / (1000 * 60 * 60 * 24);
-
-    return diffDays >= -7 && diffDays <= 7;
+    const diff =
+      (new Date(startDate) - new Date()) / (1000 * 60 * 60 * 24);
+    return diff >= -7 && diff <= 7;
   };
 
-  if (loading) return <div className={styles.loading}>Loading batches...</div>;
+  const getEnrollmentForBatch = (batchId) => {
+    return enrollments.find(
+      (e) => e.batch?.batch_id === batchId
+    );
+  };
+
+  /* ----------------------------
+     Apply handler
+  -----------------------------*/
+  const handleApply = async (e, batchId) => {
+    e.stopPropagation();
+    setApplyingId(batchId);
+
+    try {
+      await api.post("/VJISS/batch_enrollment/", {
+        student_id: public_id,
+        batch_id: batchId,
+      });
+
+      // optimistic update
+      setEnrollments((prev) => [
+        ...prev,
+        {
+          batch: { batch_id: batchId },
+          status: "Pending",
+        },
+      ]);
+
+      alert("Applied successfully ✅");
+    } catch (err) {
+      alert("Already applied or enrollment closed ❌");
+    } finally {
+      setApplyingId(null);
+    }
+  };
+
+  /* ----------------------------
+     UI states
+  -----------------------------*/
+  if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.error}>{error}</div>;
-  if (batches.length === 0)
-    return <div className={styles.empty}>No batches available</div>;
 
   return (
     <div>
       <Navbar />
 
+      {/* ---------------- My Applications ---------------- */}
+
+      <div className={styles.appliedSection}>
+        
+        <div
+          className={styles.appliedHeader}
+          onClick={() => setShowApplied(!showApplied)}
+        >
+          <h2>My Applications</h2>
+          <span>{showApplied ? "▲" : "▼"}</span>
+        </div>
+
+        {showApplied && (
+          <div className={styles.appliedList}>
+            {enrollments.length === 0 ? (
+              <p>No applications found</p>
+            ) : (
+              enrollments.map((item) => (
+                <div
+                  key={item.enrollment_id}
+                  className={styles.appliedCard} 
+                 
+                >
+                    <h3>{item.batch.course.course_name}</h3>
+                  <p>
+                    <strong>Level:</strong>{" "}
+                    {item.batch.course.course_level}
+                  </p>
+                  <p>
+                    <strong>Faculty:</strong>{" "}
+                    {item.batch.faculty.trainer_name}
+                  </p>
+                  <p>
+                    <strong>Applied On:</strong>{" "}
+                    {item.enrollment_date}
+                  </p>
+                  <span
+                    className={`${styles.status} ${
+                      styles[item.status.toLowerCase()]
+                    }`}
+                  >
+                    {item.status}
+                  </span>
+                </div>
+              ))
+            )}
+          </div>
+        )}
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+      {/* ---------------- Batch List ---------------- */}
       <div className={styles.container}>
         <h1 className={styles.pageTitle}>Batch Details</h1>
 
         <div className={styles.batchGrid}>
           {batches.map((batch) => {
-            const enrolledBatch = enrollments.find(
-              (e) => e.course?.course_id === batch.course.course_id
-            );
+            const enrollment = getEnrollmentForBatch(batch.batch_id);
+            const status = enrollment?.status || "NotApplied";
 
-            const isEnrolledThisBatch =
-              enrolledBatch?.batch?.batch_id === batch.batch_id;
+            let buttonText = "ENROLL";
+            let disabled = false;
 
-            const isBlocked =
-              enrolledBatch &&
-              enrolledBatch.batch?.batch_id !== batch.batch_id;
+            if (status === "Pending" || status === "Enrolled") {
+              buttonText = "Applied ✅";
+              disabled = true;
+            }
+
+            if (status === "Dropped") {
+              buttonText = "ENROLL";
+              disabled = false;
+            }
 
             return (
-
               <div
-  key={batch.batch_id}
-  className={`${styles.batchCard}
-    ${isEnrolledThisBatch ? styles.enrolledCard : ""}
-    ${isBlocked ? styles.blockedCard : ""}
-    ${activeBatchId === batch.batch_id ? styles.activeCard : ""}
-  `}
-  onClick={() => setActiveBatchId(batch.batch_id)}
->
-  {isNewbatch(batch.start_date) && (
-    <span className={styles.newBadge}>NEW</span>
-  )}
+                key={batch.batch_id}
+                className={`${styles.batchCard} ${
+                  activeBatchId === batch.batch_id
+                    ? styles.activeCard
+                    : ""
+                }`}
+                onClick={() => setActiveBatchId(batch.batch_id)}
+              >
+                {isNewbatch(batch.start_date) && (
+                  <span className={styles.newBadge}>NEW</span>
+                )}
 
-  <h2 className={styles.courseName}>
-    {batch.course.course_name}
-  </h2>
+                <h2 className={styles.courseName}>
+                  {batch.course.course_name}
+                </h2>
 
-  <p><strong>Faculty:</strong> {batch.faculty.trainer_name}</p>
-  <p><strong>Start:</strong> {batch.start_date || "TBD"}</p>
-  <p><strong>End:</strong> {batch.end_date || "TBD"}</p>
+                <p>
+                  <strong>Faculty:</strong>{" "}
+                  {batch.faculty.trainer_name}
+                </p>
+                <p>
+                  <strong>Start:</strong>{" "}
+                  {batch.start_date || "TBD"}
+                </p>
+                <p>
+                  <strong>End:</strong>{" "}
+                  {batch.end_date || "TBD"}
+                </p>
 
-  <p>
-    <strong>Timing:</strong>{" "}
-    {batch.timing
-      ? new Date(`1970-01-01T${batch.timing}`).toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: true,
-        })
-      : "TBD"}
-  </p>
+                <p>
+                  <strong>Timing:</strong>{" "}
+                  {batch.timing
+                    ? new Date(
+                        `1970-01-01T${batch.timing}`
+                      ).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true,
+                      })
+                    : "TBD"}
+                </p>
 
-  <p><strong>Mode:</strong> {batch.mode}</p>
-  <p><strong>Batch Type:</strong> {batch.batch_type}</p>
-  <p><strong>Duration:</strong> {batch.course_duration}</p>
+                <p>
+                  <strong>Mode:</strong> {batch.mode}
+                </p>
 
-  <span className={`${styles.status} ${styles[batch.status]}`}>
-    {batch.status}
-  </span>
+                <p>
+                  <strong>Batch Type:</strong> {batch.batch_type}
+                </p>
 
-  {/* 🔴 Block message */}
-  {isBlocked && (
-    <div className={styles.blockMessage}>
-      You are already enrolled in{" "}
-      <strong>{batch.course.course_name}</strong> batch.
-    </div>
-  )}
+                <p>
+                  <strong>Duration:</strong>{" "}
+                  {batch.course_duration}
+                </p>
 
-  {isEnrolledThisBatch && (
-  <div className={styles.presentText}>
-    You are in this batch
-  </div>
-)}
+                <span
+                  className={`${styles.batchstatus} ${
+                    styles[batch.status]
+                  }`}
+                >
+                  {batch.status}
+                </span>
 
-
-  <EnrollButton
-    courseId={batch.course.course_id}
-    batchId={batch.batch_id}
-    courseName={batch.course.course_name}
-  />
-</div>
-
-            
+                {/* -------- Apply Button -------- */}
+                <button
+                  className={`${styles["action-btn"]} ${
+                    disabled ? styles.disabled : styles.enroll
+                  }`}
+                  disabled={disabled || applyingId === batch.batch_id}
+                  onClick={(e) =>
+                    handleApply(e, batch.batch_id)
+                  }
+                >
+                  {applyingId === batch.batch_id
+                    ? "APPLYING..."
+                    : buttonText}
+                </button>
+              </div>
             );
           })}
         </div>

@@ -28,21 +28,23 @@ import JobNotificationForm from "./components/Admin/createJobnotifiy";
 import AdminRoute from "./components/Routes/AdminRoute";
 import ProtectedRoute from "./components/Routes/ProtectedRoute";
 import Forbidden from "./components/Routes/forbidden";
+import ScrollToTop from "./ScrollToTop";
+
 //import { LoadingProvider } from "./components/contexts/LoadingContext";
 
 import { registerLoadingSetter } from "./components/Loading/loadingHelper";
 import LoadingSpinner from "./components/Loading/loading";
 import { LoadingProvider,LoadingContext} from "./components/contexts/LoadingContext";
 
-// const LoaderBridge = () => {
-//   const { loading, setLoading } = useContext(LoadingContext);
+const LoaderBridge = () => {
+  const { loading, setLoading } = useContext(LoadingContext);
 
-//   useEffect(() => {
-//     registerLoadingSetter(setLoading);
-//   }, [setLoading]);
+  useEffect(() => {
+    registerLoadingSetter(setLoading);
+  }, [setLoading]);
 
-//   return loading ? <LoadingSpinner /> : null;
-// };
+  return loading ? <LoadingSpinner /> : null;
+};
 
 
 function App() {
@@ -60,18 +62,22 @@ function App() {
   //const hideNotifierRoutes = ["/login", "/signup", "/forgotpassword"];
 
   return (
+    
     <AuthProvider>
+      <LoadingProvider>
       <NavbarProvider>
+
         <CourseProvider>
           
-        
+        {<LoaderBridge />}
+       
 {/* 
           {!hideNotifierRoutes.includes(location.pathname) && (
             <TokenNotifier setBlur={setBlur} />
           )}
 
           {!hideBackBtnRoutes.includes(location.pathname) && <BackButton />} */}
-
+       
           <Routes>
 
             {/* 🌐 PUBLIC */}
@@ -237,6 +243,7 @@ function App() {
 
         </CourseProvider>
       </NavbarProvider>
+      </LoadingProvider>
     </AuthProvider>
   );
 }

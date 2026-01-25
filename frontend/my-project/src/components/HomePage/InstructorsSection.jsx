@@ -2,10 +2,12 @@
 import api from '../apis/api';
 import styles from "../styles/components/InstructorsSection.module.css";
 import { useState,useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 const imageBaseUrl = process.env.REACT_APP_IMAGE_BASE_URL;
 
 const InstructorsSection = () => {
   const [INSTRUCTORS, setINSTRUCTORS] = useState([]);
+  const navigate=useNavigate()
   useEffect(() => {
     const fetchInstructors = async () => {
       try { 
@@ -37,7 +39,7 @@ const InstructorsSection = () => {
         {/* Instructors Grid */}
         <div className={styles.grid}>
           {INSTRUCTORS.map((instructor, index) => (
-            <div className={styles.card} key={index}>
+            <div className={styles.card} key={index} onClick={() => navigate("/trainers")} >
               <img
                 src={instructor.trainer_image.startsWith("http")
                   ? instructor.trainer_image

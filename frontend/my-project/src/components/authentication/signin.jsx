@@ -113,7 +113,7 @@ const sendSignupOtp = async () => {
   }
 
   try {
-    await axios.post("https://vjiss-compnay.onrender.com/VJISS/send-otp/", {
+    await axios.post("https://vjinnovative-company.onrender.com/VJISS/send-otp/", {
       email: formData.email,
     });
 
@@ -221,7 +221,7 @@ const formatTime = (seconds) => {
 
     try {
       const response = await axios.post(
-        "https://vjiss-compnay.onrender.com/VJISS/login/",
+        "https://vjinnovative-company.onrender.com/VJISS/login/",
         {
           email: formData.email,
           password: formData.password,

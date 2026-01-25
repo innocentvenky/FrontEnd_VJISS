@@ -89,45 +89,30 @@ const [editData, setEditData] = useState({
   };
 
   // ✅ SUBMIT APPLICATION (FIXED)
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    if (!education || !resume) {
-      alert("Please select qualification and upload resume");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append(
-      "internship_offers_id",
-      selectedInternship.internship_id
-    );
-    formData.append(
-      "student_id",
-      public_id
-    );
-    formData.append("education", education);
-    formData.append("resume", resume);
-    console.log("Submitting application with data:", {
-      internship_offers_id: selectedInternship.internship_id,
-      education,
-      resume,
-    });
-    console.log("Public ID being sent:", formData);
-    try {
-      await api.post("/VJISS/apply_internship/", formData);
-
-      alert("Internship applied successfully!");
-      closeModal();
-
-      // 🔄 refresh applied internships
-      const updated = await api.get("/VJISS/view_applications/");
-      setAppliedInternships(updated.data || []);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!education || !resume) {
+    alert("Please select qualification and upload resume");
+    return;
+  }
+  const formData = new FormData();
+  formData.append("internship_offers_id", selectedInternship.internship_id);
+  formData.append("student_id", public_id);
+  formData.append("education", education);
+  formData.append("resume", resume);
+    try{
+    const res=await api.post("/VJISS/apply_internship/", formData)
+    alert("Application submitted successfully!");
+    closeModal();
+    setInternships((prev) => [...prev]);
+    console.log(res);
     } catch (error) {
       console.error(error.response?.data);
-      alert("Failed to apply internship");
-    }
-  };
+      alert("Failed to submit application");  
+  }
+};
+
 
 const openEditModal = (item) => {
   console.log("Editing item:", item);

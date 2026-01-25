@@ -26,7 +26,16 @@ const AboutSection = () => {
             <li>💼 Placement & interview preparation support</li>
           </ul>
 
-          <button className={styles.cta}>Learn More</button>
+          <a
+  href="https://www.instagram.com/vj_innovative?igsh=MW85ZzZhZzNzMnpjbQ%3D%3D"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <button className={styles.cta}>
+    Follow Us on Instagram
+  </button>
+</a>
+
         </div>
 
         {/* Right Visual */}

@@ -51,7 +51,7 @@
 }
 
 /* ================= STATUS ================= */
-.status {
+.batchstatus {
   display: inline-block;
   margin-top: 10px;
   padding: 4px 10px;
@@ -67,8 +67,8 @@
 }
 
 .upcoming {
-  background: #fef3c7;
-  color: #ca8a04;
+  background: #e7cf70;
+  color: #000000;
 }
 
 .completed {
@@ -250,4 +250,117 @@
   border-radius: 6px;
   text-align: center;
   font-size: 14px;
+}
+
+
+
+
+.enroll {
+  background-color: #2563eb; /* blue */
+  color: white;
+}
+
+button:disabled {
+  color: rgb(17, 17, 17);
+  font-weight: 600;
+  background-color:  #b0e6f3;; /* gray */
+  cursor: not-allowed;
+}
+
+.enrolled {
+  background-color: #16a34a; /* ✅ green */
+  color: white;
+  cursor: not-allowed;
+}
+
+
+/* ===============================
+   APPLIED SECTION
+================================ */
+.appliedSection {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+  
+}
+
+/* Header */
+.appliedHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background:linear-gradient(rgb(113, 113, 231));
+  color: #ffffff;
+  padding: 14px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.appliedHeader h2 {
+  font-size: 18px;
+}
+
+/* List */
+.appliedList {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+/* Applied Card */
+.appliedCard {
+  background: #f9fafb;
+  padding: 16px;
+  border-radius: 12px;
+  border-left: 4px solid var(--primary);
+  position: relative;
+  cursor: pointer;
+}
+
+
+.appliedCard:hover {
+  background: #a4a5a7;
+}
+
+.appliedCard h3 {
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+/* Status */
+.status {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 10px;
+  font-size: 11px;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status.approved {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status.rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Empty */
+.emptyText {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-muted);
 }
