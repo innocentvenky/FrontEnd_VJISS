@@ -1,9 +1,9 @@
 
-import React, { useState,useEffect,useContext } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import React, { useEffect,useContext } from "react";
+import { Routes, Route } from "react-router-dom";
 import AuthProvider from "./components/contexts/AuthContext";
 //import TokenNotifier from "./components/alerts/loginalert";
-import Dashboard from "./components/DashBoard/dashboard";
+
 import Courses from "./components/courses/courses";
 import NavbarProvider from "./components/contexts/navbarContext";
 import AboutCompany from "./components/aboutCompany/aboutcompany";
@@ -12,7 +12,7 @@ import JobNotifications from "./components/jobNotifications/jobnotifications";
 import Trainers from "./components/trainers/about_trainers";
 import Auth from "./components/authentication/MainAuth";
 import CourseWithSyllabusForm from "./components/courses/create_course";
-import BackButton from "./components/BackButton";
+//import BackButton from "./components/BackButton";
 import HomePage from "./components/HomePage/Homepage";
 import AdminHome from "./components/Admin/adminHome";
 import AllUsers from "./components/Admin/allusers";
@@ -28,7 +28,7 @@ import JobNotificationForm from "./components/Admin/createJobnotifiy";
 import AdminRoute from "./components/Routes/AdminRoute";
 import ProtectedRoute from "./components/Routes/ProtectedRoute";
 import Forbidden from "./components/Routes/forbidden";
-import ScrollToTop from "./ScrollToTop";
+
 
 //import { LoadingProvider } from "./components/contexts/LoadingContext";
 
@@ -48,16 +48,16 @@ const LoaderBridge = () => {
 
 
 function App() {
-  const location = useLocation();
-  const [blur, setBlur] = useState(false);
+  //const location = useLocation();
+ // const [blur, setBlur] = useState(false);
 
-  const hideBackBtnRoutes = [
-    "/",
-    "/home",
-    "/login",
-    "/signup",
-    "/forgotpassword",
-  ];
+  // const hideBackBtnRoutes = [
+  //   "/",
+  //   "/home",
+  //   "/login",
+  //   "/signup",
+  //   "/forgotpassword",
+  // ];
 
   //const hideNotifierRoutes = ["/login", "/signup", "/forgotpassword"];
 
