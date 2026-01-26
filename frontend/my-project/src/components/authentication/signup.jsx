@@ -369,6 +369,7 @@ const handleSignUpSubmit = async (e) => {
       <div className={styles.inputWrapper}>
         <i className="fas fa-calendar-alt"></i>
         <input
+        placeholder="Date Of Birth"
           type="date"
           name="date_of_birth"
           value={formData.date_of_birth}
@@ -380,7 +381,7 @@ const handleSignUpSubmit = async (e) => {
       {/* Password */}
       <PasswordInput
         name="password"
-        placeholder="Password"
+        placeholder="Create Password"
         value={formData.password}
         onChange={handleChange} 
         required

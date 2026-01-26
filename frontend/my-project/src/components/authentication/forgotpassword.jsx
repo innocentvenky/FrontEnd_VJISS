@@ -88,7 +88,7 @@ const ForgotPassword = ({ goToLogin }) => {
       clearInterval(timerRef.current);
       goToLogin();
     } catch {
-      alert("Invalid OTP");
+      alert("Invalid OTP or user doesn't exists");
     }
   };
 

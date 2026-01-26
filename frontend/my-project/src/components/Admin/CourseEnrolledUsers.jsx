@@ -77,8 +77,9 @@ const CourseEnrolledUsers = () => {
 
   const fetchEnrollments = async () => {
     try {
-      const res = await api.get("/VJISS/course_enrolled_users/");
+      const res = await api.get("VJISS/student_enrollment_details/");
       setEnrollments(res.data?.length ? res.data : dummyEnrollments);
+      console.log(res)
     } catch {
       setEnrollments(dummyEnrollments);
     } finally {
@@ -160,7 +161,9 @@ const CourseEnrolledUsers = () => {
                 <th>Email</th>
                 <th>Course</th>
                 <th>Status</th>
+                <th>Courses Level</th>
                 <th>Change Status</th>
+                
                 <th>Enrolled On</th>
               </tr>
             </thead>
@@ -175,9 +178,10 @@ const CourseEnrolledUsers = () => {
               ) : (
                 filteredUsers.map(user => (
                   <tr key={user.id}>
-                    <td>{user.user_name}</td>
-                    <td>{user.email}</td>
-                    <td>{user.course_title}</td>
+                    <td>{user.student.first_name}</td>
+                    <td>{user.student.email}</td>
+                    <td>{user.course.course_name}</td>
+                    <td>{user.course.course_level}   </td>
 
                     <td>
                       <span className={`${styles.status} ${styles[user.status.toLowerCase()]}`}>
