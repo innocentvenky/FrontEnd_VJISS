@@ -16,7 +16,7 @@ useEffect(() => {
   
 
   const fetchJobs = async () => {
-    console.log("token",!token)
+   
      if (!token) {
         logout();
         navigate("/login");
@@ -26,9 +26,9 @@ useEffect(() => {
       const res = await api.get("/VJISS/job_notification_details/");
       setJobs(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
-      console.log("check",err.response?.status === 401)
+     
       if (err.response?.status === 401) {
-        console.log("status")
+       
           logout();
           navigate("/login");
         } else {

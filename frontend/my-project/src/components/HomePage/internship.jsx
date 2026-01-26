@@ -14,7 +14,7 @@ const navigate=useNavigate()
       try {
         const response = await api.get('/VJISS/internship_offers_details/');
         setInterships(response.data);
-        console.log("sdfds",response.data);
+        
       } catch (error) {
         console.error('Error fetching internships:', error);
       }

@@ -13,7 +13,7 @@ const InstructorsSection = () => {
       try { 
         const response = await api.get('/VJISS/trainer_details/');
         setINSTRUCTORS(response.data);
-        console.log("Instructors Data:", response.data);
+      
       } catch (error) {
         console.error('Error fetching instructors:', error);
       } 

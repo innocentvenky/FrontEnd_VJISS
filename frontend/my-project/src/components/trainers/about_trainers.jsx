@@ -3,7 +3,7 @@ import api from "../apis/api";
 import Navbar from "../navabar/navbar";
 import "./trainers.css";
 const imageBaseUrl = process.env.REACT_APP_IMAGE_BASE_URL;
-console.log("Image Base URL:", imageBaseUrl);
+
 const Trainers = () => {
   const [trainers, setTrainers] = useState([]);
   const [loading, setLoading] = useState(true);

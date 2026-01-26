@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  console.log({children})
+  
 
 
 
@@ -22,7 +22,7 @@ const [public_id, setPublicId] = useState(
 
 
 
-  console.log("mt",public_id)
+  
   const navigate = useNavigate();
   const login = (token, is_superuser,is_staff,public_id) => {
     localStorage.setItem("token", token);

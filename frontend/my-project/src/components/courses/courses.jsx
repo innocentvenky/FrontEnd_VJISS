@@ -18,7 +18,7 @@ const Courses = () => {
 
   const { token, logout } = useContext(AuthContext);
   const { enrollments } = useContext(CourseContext);
-  console.log(enrollments)
+ 
 
   const navigate = useNavigate();
 
@@ -36,7 +36,7 @@ const Courses = () => {
       try {
         const { data } = await api.get("/VJISS/course_details/");
         setCourses(Array.isArray(data) ? data : []);
-        console.log(data);
+        
       } catch (err) {
         setError("Failed to load courses");
       } finally {

@@ -1,41 +1,42 @@
-
-import React, { useEffect,useContext } from "react";
+import React, { useEffect, useContext, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
+
 import AuthProvider from "./components/contexts/AuthContext";
-//import TokenNotifier from "./components/alerts/loginalert";
-
-import Courses from "./components/courses/courses";
 import NavbarProvider from "./components/contexts/navbarContext";
-import AboutCompany from "./components/aboutCompany/aboutcompany";
-import InternshipOffers from "./components/internships/internships";
-import JobNotifications from "./components/jobNotifications/jobnotifications";
-import Trainers from "./components/trainers/about_trainers";
-import Auth from "./components/authentication/MainAuth";
-import CourseWithSyllabusForm from "./components/courses/create_course";
-//import BackButton from "./components/BackButton";
-import HomePage from "./components/HomePage/Homepage";
-import AdminHome from "./components/Admin/adminHome";
-import AllUsers from "./components/Admin/allusers";
-import InternshipApplications from "./components/Admin/InternshipApplications";
-import CourseEnrolledUsers from "./components/Admin/CourseEnrolledUsers";
-import CreateInternship from "./components/Admin/CreateInternship";
-import GetCourseDetails from "./components/courses/getCourseDetaILS.";
-import Carousal from "./components/caurosel";
-import BatchDetails from "./components/newbacths/newbacths";
 import { CourseProvider } from "./components/contexts/enrollContext";
-import NewBatchForm from "./components/Admin/create_new-batch";
-import JobNotificationForm from "./components/Admin/createJobnotifiy";
-import AdminRoute from "./components/Routes/AdminRoute";
+import { LoadingProvider, LoadingContext } from "./components/contexts/LoadingContext";
+
 import ProtectedRoute from "./components/Routes/ProtectedRoute";
-import Forbidden from "./components/Routes/forbidden";
-
-
-//import { LoadingProvider } from "./components/contexts/LoadingContext";
+import AdminRoute from "./components/Routes/AdminRoute";
 
 import { registerLoadingSetter } from "./components/Loading/loadingHelper";
 import LoadingSpinner from "./components/Loading/loading";
-import { LoadingProvider,LoadingContext} from "./components/contexts/LoadingContext";
 
+/* 🔹 Lazy Pages */
+const HomePage = React.lazy(() => import("./components/HomePage/Homepage"));
+const Auth = React.lazy(() => import("./components/authentication/MainAuth"));
+const Courses = React.lazy(() => import("./components/courses/courses"));
+const GetCourseDetails = React.lazy(() => import("./components/courses/getCourseDetaILS."));
+const AboutCompany = React.lazy(() => import("./components/aboutCompany/aboutcompany"));
+const InternshipOffers = React.lazy(() => import("./components/internships/internships"));
+const JobNotifications = React.lazy(() => import("./components/jobNotifications/jobnotifications"));
+const Trainers = React.lazy(() => import("./components/trainers/about_trainers"));
+const Carousal = React.lazy(() => import("./components/caurosel"));
+const BatchDetails = React.lazy(() => import("./components/newbacths/newbacths"));
+
+/* 🔐 Admin */
+const AdminHome = React.lazy(() => import("./components/Admin/adminHome"));
+const AllUsers = React.lazy(() => import("./components/Admin/allusers"));
+const InternshipApplications = React.lazy(() => import("./components/Admin/InternshipApplications"));
+const CourseEnrolledUsers = React.lazy(() => import("./components/Admin/CourseEnrolledUsers"));
+const CreateInternship = React.lazy(() => import("./components/Admin/CreateInternship"));
+const CourseWithSyllabusForm = React.lazy(() => import("./components/courses/create_course"));
+const NewBatchForm = React.lazy(() => import("./components/Admin/create_new-batch"));
+const JobNotificationForm = React.lazy(() => import("./components/Admin/createJobnotifiy"));
+
+const Forbidden = React.lazy(() => import("./components/Routes/forbidden"));
+
+/* 🔁 Loader Bridge */
 const LoaderBridge = () => {
   const { loading, setLoading } = useContext(LoadingContext);
 
@@ -46,203 +47,101 @@ const LoaderBridge = () => {
   return loading ? <LoadingSpinner /> : null;
 };
 
-
 function App() {
-  //const location = useLocation();
- // const [blur, setBlur] = useState(false);
-
-  // const hideBackBtnRoutes = [
-  //   "/",
-  //   "/home",
-  //   "/login",
-  //   "/signup",
-  //   "/forgotpassword",
-  // ];
-
-  //const hideNotifierRoutes = ["/login", "/signup", "/forgotpassword"];
-
   return (
-    
     <AuthProvider>
       <LoadingProvider>
-      <NavbarProvider>
+        <NavbarProvider>
+          <CourseProvider>
 
-        <CourseProvider>
-          
-        {<LoaderBridge />}
-       
-{/* 
-          {!hideNotifierRoutes.includes(location.pathname) && (
-            <TokenNotifier setBlur={setBlur} />
-          )}
+            <LoaderBridge />
 
-          {!hideBackBtnRoutes.includes(location.pathname) && <BackButton />} */}
-       
-          <Routes>
+            {/* 🌟 ONE Suspense for all routes */}
+            <Suspense fallback={<LoadingSpinner />}>
+              <Routes>
 
-            {/* 🌐 PUBLIC */}
-            <Route path="/login" element={<Auth defaultForm="login" />} />
-            <Route path="/signup" element={<Auth defaultForm="signup" />} />
-            <Route path="/forgotpassword" element={<Auth defaultForm="forgotpassword" />} />
-            <Route path="/403" element={<Forbidden />} />
+                {/* 🌐 PUBLIC */}
+                <Route path="/login" element={<Auth defaultForm="login" />} />
+                <Route path="/signup" element={<Auth defaultForm="signup" />} />
+                <Route path="/forgotpassword" element={<Auth defaultForm="forgotpassword" />} />
+                <Route path="/403" element={<Forbidden />} />
 
-            {/* 🔒 PROTECTED (LOGIN REQUIRED) */}
-           
+                {/* 🔒 PROTECTED */}
+                <Route path="/" element={<HomePage />} />
 
-            <Route
-              path="/"
-              element={
-               
-                  <HomePage />
-                
-              }
-            />
+                <Route path="/courses" element={
+                  <ProtectedRoute><Courses /></ProtectedRoute>
+                } />
 
-            <Route
-              path="/courses"
-              element={
-                <ProtectedRoute>
-                  <Courses />
-                </ProtectedRoute>
-              }
-            />
+                <Route path="/course/:id" element={
+                  <ProtectedRoute><GetCourseDetails /></ProtectedRoute>
+                } />
 
-            <Route
-              path="/course/:id"
-              element={
-                <ProtectedRoute>
-                  <GetCourseDetails />
-                </ProtectedRoute>
-              }
-            />
+                <Route path="/about" element={
+                  <ProtectedRoute><AboutCompany /></ProtectedRoute>
+                } />
 
-            <Route
-              path="/about"
-              element={
-                <ProtectedRoute>
-                  <AboutCompany />
-                </ProtectedRoute>
-              }
-            />
+                <Route path="/internship" element={
+                  <ProtectedRoute><InternshipOffers /></ProtectedRoute>
+                } />
 
-            <Route
-              path="/internship"
-              element={
-                <ProtectedRoute>
-                  <InternshipOffers />
-                </ProtectedRoute>
-              }
-            />
+                <Route path="/jobnotifications" element={
+                  <ProtectedRoute><JobNotifications /></ProtectedRoute>
+                } />
 
-            <Route
-              path="/jobnotifications"
-              element={
-                <ProtectedRoute>
-                  <JobNotifications />
-                </ProtectedRoute>
-              }
-            />
+                <Route path="/trainers" element={
+                  <ProtectedRoute><Trainers /></ProtectedRoute>
+                } />
 
-            <Route
-              path="/trainers"
-              element={
-                <ProtectedRoute>
-                  <Trainers />
-                </ProtectedRoute>
-              }
-            />
+                <Route path="/carousel" element={
+                  <ProtectedRoute><Carousal /></ProtectedRoute>
+                } />
 
-            <Route
-              path="/carousel"
-              element={
-                <ProtectedRoute>
-                  <Carousal />
-                </ProtectedRoute>
-              }
-            />
+                <Route path="/newbacth" element={
+                  <ProtectedRoute><BatchDetails /></ProtectedRoute>
+                } />
 
-            <Route
-              path="/newbacth"
-              element={
-                <ProtectedRoute>
-                  <BatchDetails />
-                </ProtectedRoute>
-              }
-            />
+                {/* 🔐 ADMIN */}
+                <Route path="/admin" element={
+                  <AdminRoute><AdminHome /></AdminRoute>
+                } />
 
-            {/* 🔐 ADMIN ONLY */}
-            <Route
-              path="/admin"
-              element={
-                <AdminRoute>
-                  <AdminHome />
-                </AdminRoute>
-              }
-            />
+                <Route path="/courses_create" element={
+                  <AdminRoute><CourseWithSyllabusForm /></AdminRoute>
+                } />
 
-            <Route path="/courses_create" element={<AdminRoute><CourseWithSyllabusForm /></AdminRoute>} />
+                <Route path="/admin/users" element={
+                  <AdminRoute><AllUsers /></AdminRoute>
+                } />
 
-            <Route
-              path="/admin/users"
-              element={
-                <AdminRoute>
-                  <AllUsers />
-                </AdminRoute>
-              }
-            />
+                <Route path="/admin/internship_applications" element={
+                  <AdminRoute><InternshipApplications /></AdminRoute>
+                } />
 
-            <Route
-              path="/admin/internship_applications"
-              element={
-                <AdminRoute>
-                  <InternshipApplications />
-                </AdminRoute>
-              }
-            />
+                <Route path="/admin/course_enrolled_users" element={
+                  <AdminRoute><CourseEnrolledUsers /></AdminRoute>
+                } />
 
-            <Route
-              path="/admin/course_enrolled_users"
-              element={
-                <AdminRoute>
-                  <CourseEnrolledUsers />
-                </AdminRoute>
-              }
-            />
+                <Route path="/admin/create_internship" element={
+                  <AdminRoute><CreateInternship /></AdminRoute>
+                } />
 
-            <Route
-              path="/admin/create_internship"
-              element={
-                <AdminRoute>
-                  <CreateInternship />
-                </AdminRoute>
-              }
-            />
+                <Route path="/createnewbatch" element={
+                  <AdminRoute><NewBatchForm /></AdminRoute>
+                } />
 
-            <Route
-              path="/createnewbatch"
-              element={
-                <AdminRoute>
-                  <NewBatchForm />
-                </AdminRoute>
-              }
-            />
+                <Route path="/createjobnotification" element={
+                  <AdminRoute><JobNotificationForm /></AdminRoute>
+                } />
 
-            <Route
-              path="/createjobnotification"
-              element={
-                <AdminRoute>
-                  <JobNotificationForm />
-                </AdminRoute>
-              }
-            />
+                {/* ❌ 404 */}
+                <Route path="*" element={<div>404 Not Found</div>} />
 
-            {/* ❌ 404 */}
-            <Route path="*" element={<div>404 Not Found</div>} />
+              </Routes>
+            </Suspense>
 
-          </Routes>
-
-        </CourseProvider>
-      </NavbarProvider>
+          </CourseProvider>
+        </NavbarProvider>
       </LoadingProvider>
     </AuthProvider>
   );

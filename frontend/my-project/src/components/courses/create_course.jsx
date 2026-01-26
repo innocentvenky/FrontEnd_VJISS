@@ -67,14 +67,12 @@ const removeSyllabus = (index) => {
       Object.keys(courseData).forEach((key) => {
         formData.append(key, courseData[key]);
       });
-console.log("Submitting Course Data:", courseData);
-console.log("Submitting Syllabus Data:", syllabus);
       const courseResponse = await api.post(
         "/VJISS/add_course/",
         formData);
-console.log(courseResponse)
+
       const courseId = courseResponse.data.course_id;
-      console.log("Course Created:", courseId);
+      
 
       // ===============================
       // 2️⃣ CREATE SYLLABUS (FIXED)
@@ -94,7 +92,7 @@ const filteredSyllabus = syllabus.filter(
       return;
     }
 
-    console.log("Submitting Syllabus Data:", filteredSyllabus);
+  
 
 
 

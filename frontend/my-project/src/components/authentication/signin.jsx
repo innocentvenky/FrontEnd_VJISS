@@ -227,9 +227,7 @@ const formatTime = (seconds) => {
           password: formData.password,
         }
       );
-console.log("Login response:", response.data);
 
-console.log("Received token:", response.data.token);
       login(response.data.token, response.data.is_superuser,response.data.is_staff,response.data.public_id);
       
       alert("Login successful");

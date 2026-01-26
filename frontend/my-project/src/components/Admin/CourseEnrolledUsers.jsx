@@ -176,8 +176,8 @@ const CourseEnrolledUsers = () => {
                   </td>
                 </tr>
               ) : (
-                filteredUsers.map(user => (
-                  <tr key={user.id}>
+                filteredUsers.map((user,index) => (
+                  <tr key={index}>
                     <td>{user.student.first_name}</td>
                     <td>{user.student.email}</td>
                     <td>{user.course.course_name}</td>
@@ -205,7 +205,7 @@ const CourseEnrolledUsers = () => {
                       </select>
                     </td>
 
-                    <td>{new Date(user.enrolled_on).toLocaleDateString()}</td>
+                    <td>{new Date(user.enrollment_date).toLocaleDateString()}</td>
                   </tr>
                 ))
               )}

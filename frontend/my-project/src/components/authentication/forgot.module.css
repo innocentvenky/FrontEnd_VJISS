@@ -226,16 +226,16 @@ background: #077077;
     padding: 26px 18px;
     border-radius: 16px;
   }
+  .mleftIcon {
+  margin-top: 9px;
+
+}
 
   .title {
     font-size: 18px;
     margin-bottom: 20px;
   }
 
-  .leftIcon,
-  .rightIcon {
-    font-size: 14px;
-  }
 
   .submitBtn {
     font-size: 15px;
@@ -245,4 +245,5 @@ background: #077077;
   .backText {
     font-size: 13px;
   }
+  
 }

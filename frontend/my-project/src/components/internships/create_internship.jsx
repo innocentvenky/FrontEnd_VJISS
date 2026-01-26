@@ -28,13 +28,13 @@ const CreateInternship = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting form data:", formData);
+    
     try {
       const response = await api.post(
         "VJISS/add_internship_offers/",
         formData
       );
-      console.log("Internship created:", response.data);
+
       alert("Internship created successfully 🎉");
 
       // reset form

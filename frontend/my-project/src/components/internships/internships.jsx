@@ -25,7 +25,7 @@ const InternshipOffers = () => {
   const [selectedInternship, setSelectedInternship] = useState(null);
   const [education, setEducation] = useState("");
   const [resume, setResume] = useState(null);
-  console.log("Public ID from context:", public_id);
+  
   const [showEditModal, setShowEditModal] = useState(false);
 const [editData, setEditData] = useState({
   internship_id: "",
@@ -44,7 +44,7 @@ const [editData, setEditData] = useState({
   
   // ✅ FETCH DATA
   useEffect(() => {
-     console.log("EditData updated:", editData);
+     
     const fetchData = async () => {
       try {
         const appliedRes = await api.get("/VJISS/view_applications/");
@@ -53,10 +53,10 @@ const [editData, setEditData] = useState({
         const internshipsRes = await api.get(
           "/VJISS/internship_offers_details/"
         );
-        console.log(internshipsRes.data)
+       
         setInternships(Array.isArray(internshipsRes.data) ? internshipsRes.data : []);
 
-     console.log(editData)   
+  
         setInternships(
           Array.isArray(internshipsRes.data) ? internshipsRes.data : []
         );
@@ -106,7 +106,7 @@ const handleSubmit = async (e) => {
     alert("Application submitted successfully!");
     closeModal();
     setInternships((prev) => [...prev]);
-    console.log(res);
+   
     } catch (error) {
       console.error(error.response?.data);
       alert("Failed to submit application");  
@@ -115,7 +115,7 @@ const handleSubmit = async (e) => {
 
 
 const openEditModal = (item) => {
-  console.log("Editing item:", item);
+
 
   setEditData({
     internship_id: item.internship_id,
@@ -152,9 +152,7 @@ const handleDelete = async (item) => {
 
 const handleUpdate = async (e) => {
   e.preventDefault();
-  console.log(e)
 
-console.log("data",editData)
   try {
     await api.put(
       `/VJISS/modify_internship_offers/${editData.internship_id}`,

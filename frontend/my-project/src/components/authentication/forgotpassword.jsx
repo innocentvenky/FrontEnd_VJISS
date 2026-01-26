@@ -110,7 +110,7 @@ const ForgotPassword = ({ goToLogin }) => {
         </div>
 
         <div className={styles.otpWrapper}>
-            <i className={`fas fa-shield-alt ${styles.leftIcon}`}></i>
+            <i className={`fas fa-shield-alt ${styles.leftIcon} ${styles.mleftIcon}`}></i>
           <input
 
             type="text"
