@@ -78,7 +78,7 @@ function App() {
                 } />
 
                 <Route path="/about" element={
-                  <ProtectedRoute><AboutCompany /></ProtectedRoute>
+                  <AboutCompany />
                 } />
 
                 <Route path="/internship" element={

@@ -2,71 +2,39 @@ import React, { useEffect, useState } from "react";
 import api from "../apis/api";
 import styles from "../styles/components/AdimHomePage/InternshipApplications.module.css";
 
-/* ================= Dummy Data ================= */
-const dummyApplications = [
-  {
-    id: "dummy-1",
-    user_name: "Rahul Sharma",
-    email: "rahul@gmail.com",
-    internship_title: "Frontend Developer",
-    status: "PENDING",
-    applied_at: "2025-01-05",
-    resume: "https://example.com/resume1.pdf",
-  },
-  {
-    id: "dummy-2",
-    user_name: "Anjali Verma",
-    email: "anjali@gmail.com",
-    internship_title: "Backend Developer",
-    status: "APPROVED",
-    applied_at: "2025-01-03",
-    resume: "https://example.com/resume2.pdf",
-  },
-  {
-    id: "dummy-3",
-    user_name: "Amit Kumar",
-    email: "amit@gmail.com",
-    internship_title: "Full Stack Intern",
-    status: "REJECTED",
-    applied_at: "2025-01-02",
-    resume: "",
-  },
-];
-
-/* ================= Component ================= */
-const InternshipApplications= () => {
+const InternshipApplications = () => {
   const [applications, setApplications] = useState([]);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
   const [loading, setLoading] = useState(true);
 
   /* ================= Fetch Applications ================= */
-const fetchApplications = async () => {
-  try {
-    const res = await api.get("/VJISS/view_application/");
-    const apiData = Array.isArray(res.data) ? res.data : [];
+  const fetchApplications = async () => {
+    try {
+      const res = await api.get("/VJISS/view_applications/");
+      console.log("API response:", res.data);
+      const apiData = Array.isArray(res.data) ? res.data : [];
 
-    const normalized = apiData.map((item) => ({
-      id: item.application_id || crypto.randomUUID(),
-      user_name: item.student?.username || "—",
-      email: item.student?.email || "—",
-      internship_title: item.internship_offers?.title || "—",
-      status: item.status || "PENDING",
-      applied_at: item.applied_at || item.created_at || new Date(),
-      resume: item.resume || "",
-    }));
+      const normalized = apiData.map((item) => ({
+        id: item.application_id,
+        user_name: item.student?.first_name || "—",
+        last_name: item.student?.last_name || "",
+        email: item.student?.email || "—",
+        internship_title:
+          item.internship_offers?.internship_name || "—",
+        status: item.status || "Pending",
+        applied_at: item.applied_on || item.created_at,
+        resume: item.resume || "",
+      }));
 
-    setApplications(normalized.length ? normalized : dummyApplications);
-    console.log("Normalized applications:", normalized);
-  } catch (error) {
-    console.error("API error → loading dummy data", error);
-    setApplications(dummyApplications);
-  } finally {
-    setLoading(false);
-  }
-};
-
-
+      setApplications(normalized);
+      console.log("Fetched applications:", normalized);
+    } catch (error) {
+      console.error("Failed to load applications", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchApplications();
@@ -75,17 +43,34 @@ const fetchApplications = async () => {
   /* ================= Update Status ================= */
   const updateStatus = async (id, status) => {
     try {
+      console.log("Updating status", id, status);
       await api.patch(`/VJISS/modify_application/${id}`, { status });
-    } catch (err) {
-      console.error(err);
-    }
 
-    setApplications((prev) =>
-      prev.map((app) =>
-        app.id === id ? { ...app, status } : app
-      )
-    );
+      setApplications((prev) =>
+        prev.map((item) =>
+          item.id === id ? { ...item, status } : item
+        )
+      );  
+
+    } catch (err) {
+      console.error("Backend error:", err.response?.data);
+      alert("Status update failed");
+    }
   };
+
+
+
+  const deleteApplication = async (id) => {
+    try {
+      if (!window.confirm("Delete application?")) return;
+      await api.delete(`/VJISS/delete_application/${id}`);
+      setApplications((prev) => prev.filter((app) => app.id !== id));
+    } catch (err) {
+      console.error("Delete error:", err.response?.data);
+
+      alert("Failed to delete application");
+    }
+  }
 
   /* ================= Filters ================= */
   const filteredApplications = applications
@@ -97,6 +82,15 @@ const fetchApplications = async () => {
     .filter(
       (app) => statusFilter === "ALL" || app.status === statusFilter
     );
+
+  /* ================= Resume ================= */
+  const openFile = (url) => {
+    if (!url) {
+      alert("Resume not available");
+      return;
+    }
+    window.open(url, "_blank");
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -116,9 +110,9 @@ const fetchApplications = async () => {
           onChange={(e) => setStatusFilter(e.target.value)}
         >
           <option value="ALL">All</option>
-          <option value="PENDING">Pending</option>
-          <option value="APPROVED">Approved</option>
-          <option value="REJECTED">Rejected</option>
+          <option value="Pending">Pending</option>
+          <option value="Accepted">Accepted</option>
+          <option value="Rejected">Rejected</option>
         </select>
       </div>
 
@@ -135,6 +129,7 @@ const fetchApplications = async () => {
               <th>Change Status</th>
               <th>Applied On</th>
               <th>Resume</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -147,12 +142,18 @@ const fetchApplications = async () => {
             ) : (
               filteredApplications.map((app) => (
                 <tr key={app.id}>
-                  <td>{app.user_name}</td>
+                  <td>
+                    {app.user_name} {app.last_name}
+                  </td>
                   <td>{app.email}</td>
                   <td>{app.internship_title}</td>
 
                   <td>
-                    <span className={`${styles.status} ${styles[app.status.toLowerCase()]}`}>
+                    <span
+                      className={`${styles.status} ${
+                        styles[app.status.toLowerCase()]
+                      }`}
+                    >
                       {app.status}
                     </span>
                   </td>
@@ -160,25 +161,33 @@ const fetchApplications = async () => {
                   <td>
                     <select
                       value={app.status}
-                      onChange={(e) =>
-                        window.confirm("Change status?") &&
-                        updateStatus(app.id, e.target.value)
-                      }
+                      onChange={(e) => {
+                        const newStatus = e.target.value;
+                        if (!window.confirm("Change status?")) return;
+                        updateStatus(app.id, newStatus);
+                      }}
                     >
-                      <option value="PENDING">Pending</option>
-                      <option value="APPROVED">Approved</option>
-                      <option value="REJECTED">Rejected</option>
+                      <option value="Pending">Pending</option>
+                      <option value="Accepted">Accepted</option>
+                      <option value="Rejected">Rejected</option>
                     </select>
                   </td>
 
-                  <td>{new Date(app.applied_at).toLocaleDateString()}</td>
+                  <td>
+                    {new Date(app.applied_at).toLocaleDateString()}
+                  </td>
 
                   <td>
-                    {app.resume ? (
-                      <a href={app.resume} target="_blank" rel="noreferrer">
-                        View
-                      </a>
-                    ) : "-"}
+                    <button onClick={() => openFile(app.resume)}>
+                      View Resume
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => {deleteApplication(app.id)}}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))

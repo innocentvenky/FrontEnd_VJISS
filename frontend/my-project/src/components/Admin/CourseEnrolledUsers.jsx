@@ -71,9 +71,6 @@ const CourseEnrolledUsers = () => {
   const [statusFilter, setStatusFilter] = useState("ALL");
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchEnrollments();
-  }, []);
 
   const fetchEnrollments = async () => {
     try {
@@ -87,17 +84,36 @@ const CourseEnrolledUsers = () => {
     }
   };
 
-  const updateStatus = async (id, status) => {
+
+  const handleDelete = async (id) => {
     try {
-      await api.patch(`/VJISS/modify_enrollment/${id}`, { status });
+      if (!window.confirm("Delete enrollment?")) return;  
+      await api.delete(`/VJISS/delete_student_enrollment/${id}`);
+      setEnrollments((prev) => prev.filter((enroll) => enroll.enrollment_id !== id));
+    } catch (err) {
+      console.error("Failed to delete enrollment", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchEnrollments();
+  }, []);
+
+
+  const updateStatus = async (id, status) => {
+    console.log(id,status);
+    try {
+      const r=await api.patch(`/VJISS/modify_student_enrollment/${id}`, { status });
     
 
     setEnrollments(prev =>
       prev.map(item =>
         item.id === id ? { ...item, status } : item
       )
+      
 
-    );}
+    );
+  fetchEnrollments()}
     catch(e){
       console.error(e)
     }
@@ -113,6 +129,8 @@ const CourseEnrolledUsers = () => {
     .filter(e =>
       statusFilter === "ALL" || e.status === statusFilter
     );
+
+    
 
   return (
     <div className={styles.wrapper}>
@@ -133,9 +151,9 @@ const CourseEnrolledUsers = () => {
           onChange={(e) => setStatusFilter(e.target.value)}
         >
           <option value="ALL">All</option>
-          <option value="ENROLLED">Enrolled</option>
-          <option value="COMPLETED">Completed</option>
-          <option value="DROPPED">Dropped</option>
+          <option value="Enrolled">Enrolled</option>
+          <option value="Pending">Pending</option>
+          <option value="Dropped">Dropped</option>
         </select>
 
         <button
@@ -170,6 +188,7 @@ const CourseEnrolledUsers = () => {
                 <th>Change Status</th>
                 
                 <th>Enrolled On</th>
+                <th>Delete</th>
               </tr>
             </thead>
 
@@ -183,7 +202,7 @@ const CourseEnrolledUsers = () => {
               ) : (
                 filteredUsers.map((user,index) => (
                   <tr key={index}>
-                    <td>{user.student.first_name}</td>
+                    <td>{user.student.first_name} {user.student.last_name}</td>
                     <td>{user.student.email}</td>
                     <td>{user.course.course_name}</td>
                     <td>{user.course.course_level}   </td>
@@ -200,17 +219,19 @@ const CourseEnrolledUsers = () => {
                         value={user.status}
                         onChange={(e) => {
                           if (window.confirm("Change enrollment status?")) {
-                            updateStatus(user.id, e.target.value);
+                            updateStatus(user.enrollment_id, e.target.value);
                           }
                         }}
                       >
-                        <option value="ENROLLED">Enrolled</option>
-                        <option value="COMPLETED">Completed</option>
-                        <option value="DROPPED">Dropped</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Enrolled">Enrolled</option>
+                        
+                        <option value="Dropped">Dropped</option>
                       </select>
                     </td>
 
                     <td>{new Date(user.enrollment_date).toLocaleDateString()}</td>
+                    <td><button onClick={() => handleDelete(user.enrollment_id)}>Delete</button></td>
                   </tr>
                 ))
               )}
