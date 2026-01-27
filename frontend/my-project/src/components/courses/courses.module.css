@@ -305,6 +305,7 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 20px;
     width: 300px;
+    
   }
 
   .appliedSection {
@@ -323,14 +324,15 @@ body {
   }
 
   .courses-grid {
-    grid-template-columns: 1fr;
+  
     gap: 16px;
   }
 
   .course-logo {
     height: 100px;
     object-fit: cover;
-    width: 300px;
+    width: 250px;
+    height: auto;
   }
 
   .course-header {
