@@ -90,13 +90,18 @@ const CourseEnrolledUsers = () => {
   const updateStatus = async (id, status) => {
     try {
       await api.patch(`/VJISS/modify_enrollment/${id}`, { status });
-    } catch {}
+    
 
     setEnrollments(prev =>
       prev.map(item =>
         item.id === id ? { ...item, status } : item
       )
-    );
+
+    );}
+    catch(e){
+      console.error(e)
+    }
+    
   };
 
   const filteredUsers = enrollments
