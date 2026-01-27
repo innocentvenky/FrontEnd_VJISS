@@ -93,6 +93,20 @@ useEffect(() => {
               <span>🗓 {job.company_posted_date }</span>
             </div>
 
+
+
+<div className="job-details">
+  {job.requirements && (
+    <p className="job-exp">
+      🎯 <strong>Experience:</strong> {job.requirements} Years
+    </p>
+  )}
+</div>
+
+
+
+
+
             <p className="job-desc">
               {job.job_description?.slice(0, 120)}…
             </p>
