@@ -73,6 +73,10 @@ const BatchDetails = () => {
      Apply handler
   -----------------------------*/
   const handleApply = async (e, batchId) => {
+    if (!token) {
+      alert("Please login to apply for batches.");
+      return;
+    }
     e.stopPropagation();
     setApplyingId(batchId);
 

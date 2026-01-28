@@ -29,7 +29,7 @@ const EnrollButton = ({ courseId }) => {
   const handleEnroll = async () => {
     if (disabled || loading) return;
     if (!token) {
-      alert("Please log in to enroll in a course.");
+      alert("Please login to enroll a course.");
       return;
       
     }
