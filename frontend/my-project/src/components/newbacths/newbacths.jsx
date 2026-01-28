@@ -22,26 +22,26 @@ const BatchDetails = () => {
      Fetch batches + enrollments
   -----------------------------*/
   useEffect(() => {
-    if (!token) {
-      logout();
-      return;
-    }
+    //   // if (!token) {
+    //   //   logout();
+    //   //   return;
+    // }
 
     const fetchData = async () => {
       try {
         setLoading(true);
 
-        const [batchRes, enrollRes] = await Promise.all([
-          api.get("/VJISS/batch_details/"),
-          api.get("/VJISS/batch_enrollment_details/"),
-        ]);
+      
+          const res_1=await api.get("/VJISS/batch_details/")
+          setBatches(res_1.data)
 
-        setBatches(batchRes.data);
+      if (token){
+        const res_2=   await api.get("/VJISS/batch_enrollment_details/")
 
-        const myEnrollments = enrollRes.data.filter(
+        const myEnrollments = res_2.data.filter(
           (e) => e.student.public_id === public_id
         );
-        setEnrollments(myEnrollments);
+        setEnrollments(myEnrollments);}
       } catch (err) {
         console.error(err);
         setError("Failed to load data");
@@ -111,7 +111,7 @@ const BatchDetails = () => {
 
       {/* ---------------- My Applications ---------------- */}
 
-      <div className={styles.appliedSection}>
+      {token && <div className={styles.appliedSection}>
         
         <div
           className={styles.appliedHeader}
@@ -157,7 +157,7 @@ const BatchDetails = () => {
             )}
           </div>
         )}
-      </div>
+      </div>}
 
 
 

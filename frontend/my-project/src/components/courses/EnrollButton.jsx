@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
 import { CourseContext } from "../contexts/enrollContext";
 import styles from "./courses.module.css";
-
+import { AuthContext } from "../contexts/AuthContext";  
 const EnrollButton = ({ courseId }) => {
   const { enrollCourse, getEnrollmentStatus } =
     useContext(CourseContext);
+    const{token}=useContext(AuthContext)
 
   const [loading, setLoading] = useState(false);
 
@@ -27,7 +28,12 @@ const EnrollButton = ({ courseId }) => {
 
   const handleEnroll = async () => {
     if (disabled || loading) return;
-
+    if (!token) {
+      alert("Please log in to enroll in a course.");
+      return;
+      
+    }
+if(token){
     try {
       setLoading(true);
       const res = await enrollCourse(courseId);
@@ -43,7 +49,7 @@ const EnrollButton = ({ courseId }) => {
       alert("Something went wrong");
     } finally {
       setLoading(false);
-    }
+    }}
   };
 
   return (

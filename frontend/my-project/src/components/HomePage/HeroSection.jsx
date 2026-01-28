@@ -7,8 +7,8 @@ const Hero = () => {
   return (
     <section className={styles.hero}>
       <div className={styles.heroContent}>
-        <h1 className={styles.heroTitle}>
-          VJ <span>Innovative Software Solutions Pvt Ltd</span>
+        <h1 className={styles.main_title}>
+          VJ Innovative Software Solutions Pvt Ltd
           <br />
           Build Your Career With Us
         </h1>

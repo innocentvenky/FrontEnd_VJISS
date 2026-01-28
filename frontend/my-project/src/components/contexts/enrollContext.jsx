@@ -5,7 +5,7 @@ import { AuthContext } from "./AuthContext";
 export const CourseContext = createContext();
 
 export const CourseProvider = ({ children }) => {
-  const { public_id } = useContext(AuthContext);
+  const { public_id ,token} = useContext(AuthContext);
 
   const [enrollments, setEnrollments] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -14,6 +14,7 @@ export const CourseProvider = ({ children }) => {
      Fetch Enrollments
   ----------------------------- */
  const fetchEnrollments = async () => {
+  
   try {
     const { data } = await api.get(
       "/VJISS/student_enrollment_details/"

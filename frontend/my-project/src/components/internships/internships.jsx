@@ -47,13 +47,14 @@ const [editData, setEditData] = useState({
      
     const fetchData = async () => {
       try {
+        if(token){
         const appliedRes = await api.get("/VJISS/view_applications/");
-        setAppliedInternships(appliedRes.data || []);
+        setAppliedInternships(appliedRes.data || []);}
 
         const internshipsRes = await api.get(
           "/VJISS/internship_offers_details/"
         );
-       
+       console.log(internshipsRes.data);
         setInternships(Array.isArray(internshipsRes.data) ? internshipsRes.data : []);
 
   
@@ -78,6 +79,10 @@ const [editData, setEditData] = useState({
   };
 
   const openApplyModal = (internship) => {
+    if (!token) {
+      alert("Please login to apply for internships.");
+      return;
+    }
     setSelectedInternship(internship);
     setShowModal(true);
   };

@@ -58,7 +58,7 @@ body {
    COURSE LOGO
 ================================ */
 .course-logo {
-  width: 100%;
+  width: 93%;
   height: 120px;
   object-fit: contain;
   background: #f1f5f9;
@@ -135,6 +135,8 @@ body {
 .course-actions {
   display: flex;
   gap: 10px;
+   margin-top: auto;
+  padding-top: 12px;
 }
 
 .action-btn {

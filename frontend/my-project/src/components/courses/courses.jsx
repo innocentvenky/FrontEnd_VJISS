@@ -26,11 +26,11 @@ const Courses = () => {
      Fetch Courses
   -------------------------------- */
   useEffect(() => {
-    if (!token) {
-      logout();
-      navigate("/login");
-      return;
-    }
+    // if (!token) {
+    //   logout();
+    //   navigate("/login");
+    //   return;
+    // }
 
     const fetchCourses = async () => {
       try {
@@ -45,7 +45,7 @@ const Courses = () => {
     };
 
     fetchCourses();
-  }, [token, logout, navigate]);
+  }, []);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div className={styles.error}>{error}</div>;
@@ -57,7 +57,7 @@ const Courses = () => {
       {/* -------------------------------
          My Applications
       -------------------------------- */}
-      <div className={styles.appliedSection}>
+     {token && <div className={styles.appliedSection}>
         
         <div
           className={styles.appliedHeader}
@@ -99,7 +99,7 @@ const Courses = () => {
             )}
           </div>
         )}
-      </div>
+      </div>}
 
       {/* -------------------------------
          Courses List
@@ -131,7 +131,7 @@ const Courses = () => {
                 <button
                   className={`${styles["action-btn"]} ${styles.details}`}
                   onClick={() =>
-                    navigate(`/course/${course.course_id}`)
+                    alert("Please login to view details")
                   }
                 >
                   DETAILS

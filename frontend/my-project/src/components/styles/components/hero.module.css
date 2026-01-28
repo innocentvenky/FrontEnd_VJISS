@@ -19,6 +19,16 @@
   line-height: 1.2;
 }
 
+.main_title {
+  font-size: 40px;
+  font-weight: 550;
+  margin-bottom: 12px;
+
+  font-family: 'Silver Editorial Italic';
+
+
+}
+
 .heroTitle span {
   color: #010003;
 }
@@ -119,7 +129,13 @@
     padding: 40px 16px;
     height: auto;
   }
+.main_title{
+  font-size: 32px;
+  font-weight: 550;
+  margin-bottom: 12px;
+  font-family: 'Silver Editorial Italic';
 
+}
 
 
 
@@ -161,3 +177,7 @@
 
 
 }
+
+
+
+

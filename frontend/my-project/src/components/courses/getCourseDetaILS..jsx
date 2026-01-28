@@ -30,7 +30,7 @@ const GetCourseDetails = () => {
     const fetchCourseDetails = async () => {
       if (!token) {
         logout();
-        navigate("/login");
+       alert("Please log in to view course details.");
         return;
       }
 

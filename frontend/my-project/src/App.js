@@ -70,7 +70,7 @@ function App() {
                 <Route path="/" element={<HomePage />} />
 
                 <Route path="/courses" element={
-                  <ProtectedRoute><Courses /></ProtectedRoute>
+                  <Courses />
                 } />
 
                 <Route path="/course/:id" element={
@@ -82,23 +82,21 @@ function App() {
                 } />
 
                 <Route path="/internship" element={
-                  <ProtectedRoute><InternshipOffers /></ProtectedRoute>
+                 <InternshipOffers />
                 } />
 
                 <Route path="/jobnotifications" element={
-                  <ProtectedRoute><JobNotifications /></ProtectedRoute>
+                  <JobNotifications />
                 } />
 
                 <Route path="/trainers" element={
-                  <ProtectedRoute><Trainers /></ProtectedRoute>
+                 <Trainers />
                 } />
 
-                <Route path="/carousel" element={
-                  <ProtectedRoute><Carousal /></ProtectedRoute>
-                } />
+              
 
                 <Route path="/newbacth" element={
-                  <ProtectedRoute><BatchDetails /></ProtectedRoute>
+                  <BatchDetails />
                 } />
 
                 {/* 🔐 ADMIN */}

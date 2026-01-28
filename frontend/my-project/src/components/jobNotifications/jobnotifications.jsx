@@ -17,11 +17,11 @@ useEffect(() => {
 
   const fetchJobs = async () => {
    
-     if (!token) {
-        logout();
-        navigate("/login");
-        return;
-      }
+    //  if (!token) {
+    //     logout();
+    //     navigate("/login");
+    //     return;
+    //   }
     try {
       const res = await api.get("/VJISS/job_notification_details/");
       setJobs(Array.isArray(res.data) ? res.data : []);
