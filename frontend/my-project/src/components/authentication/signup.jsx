@@ -368,14 +368,17 @@ const handleSignUpSubmit = async (e) => {
       {/* DOB */}
       <div className={styles.inputWrapper}>
         <i className="fas fa-calendar-alt"></i>
-        <input
-        placeholder="Date Of Birth"
-          type="date"
-          name="date_of_birth"
-          value={formData.date_of_birth}
-          onChange={handleChange}
-          required
-        />
+      
+  <input
+    type="date"
+    name="date_of_birth"
+    value={formData.date_of_birth || ""}
+    onChange={handleChange}
+    required
+    max={new Date().toISOString().split("T")[0]}
+  />
+
+
       </div>
 
       {/* Password */}

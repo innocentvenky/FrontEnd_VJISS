@@ -55,11 +55,17 @@ const [editData, setEditData] = useState({
           "/VJISS/internship_offers_details/"
         );
        console.log(internshipsRes.data);
-        setInternships(Array.isArray(internshipsRes.data) ? internshipsRes.data : []);
+       
 
-  
+   const sorted_data=internshipsRes.data.sort((a,b)=>{
+      return new Date(b.posted_date)-new Date(a.posted_date)
+    })
+    console.log("sorted data",sorted_data)
+    setInternships(sorted_data)
+    
+
         setInternships(
-          Array.isArray(internshipsRes.data) ? internshipsRes.data : []
+          Array.isArray(internshipsRes.data) ? sorted_data : []
         );
       } catch (error) {
         console.error(error);

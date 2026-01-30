@@ -24,7 +24,17 @@ useEffect(() => {
     //   }
     try {
       const res = await api.get("/VJISS/job_notification_details/");
-      setJobs(Array.isArray(res.data) ? res.data : []);
+      // setJobs(Array.isArray(res.data) ? res.data : []);
+console.log("job notifications",res.data)
+    //sort data based data wise
+    const sorted_data=res.data.sort((a,b)=>{
+      return new Date(b.posted_date)-new Date(a.posted_date)
+    })
+    console.log("sorted data",sorted_data)
+    setJobs(sorted_data)
+      setError("")
+
+
     } catch (err) {
      
       if (err.response?.status === 401) {

@@ -33,7 +33,16 @@ const BatchDetails = () => {
 
       
           const res_1=await api.get("/VJISS/batch_details/")
-          setBatches(res_1.data)
+       console.log("batch details",res_1.data)
+           const sorted_data=res_1.data.sort((a,b)=>{
+            console.log("a start date",new Date(a.start_date))
+            console.log("b start date",new Date(b.start_date))
+      return new Date(b.start_date)-new Date(a.start_date)
+    })
+    console.log("sorted data",sorted_data)
+    setBatches(sorted_data)
+      setError("")
+
 
       if (token){
         const res_2=   await api.get("/VJISS/batch_enrollment_details/")
@@ -219,11 +228,11 @@ const BatchDetails = () => {
                 </p>
                 <p>
                   <strong>Start:</strong>{" "}
-                  {batch.start_date || "TBD"}
+                  {new Date(batch.start_date).toLocaleDateString() || "TBD"}
                 </p>
                 <p>
                   <strong>End:</strong>{" "}
-                  {batch.end_date || "TBD"}
+                  {new Date(batch.end_date).toLocaleDateString() || "TBD"}
                 </p>
 
                 <p>
