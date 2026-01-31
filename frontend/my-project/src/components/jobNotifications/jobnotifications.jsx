@@ -28,7 +28,7 @@ useEffect(() => {
 console.log("job notifications",res.data)
     //sort data based data wise
     const sorted_data=res.data.sort((a,b)=>{
-      return new Date(b.posted_date)-new Date(a.posted_date)
+      return new Date(b.company_posted_date)-new Date(a.company_posted_date)
     })
     console.log("sorted data",sorted_data)
     setJobs(sorted_data)
@@ -65,7 +65,7 @@ console.log("job notifications",res.data)
     const diffTime = today - postDate;
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
 
-    return diffDays <= 20;
+    return diffDays <= 7;
   };
 
   if (loading) return <p className="loading">Loading job notifications...</p>;
@@ -82,7 +82,7 @@ console.log("job notifications",res.data)
       <div className="jobs-grid">
         {jobs.length!==0 ? jobs.map((job) => (
           <div className="job-card" key={job.notification_id}>
-            {isNewJob(job.posted_date) && (
+            {isNewJob(job.company_posted_date) && (
               <span className="new-badge">NEW</span>
             )}
 
@@ -100,7 +100,17 @@ console.log("job notifications",res.data)
 
             <div className="job-meta">
               <span>📍 {job.location}</span>
-              <span>🗓 {job.company_posted_date }</span>
+       <span>
+ {
+  new Date(job.company_posted_date).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  })
+}
+
+</span>
+
             </div>
 
 

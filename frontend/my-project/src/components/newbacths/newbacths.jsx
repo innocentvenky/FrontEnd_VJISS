@@ -228,11 +228,25 @@ const BatchDetails = () => {
                 </p>
                 <p>
                   <strong>Start:</strong>{" "}
-                  {new Date(batch.start_date).toLocaleDateString() || "TBD"}
+               {
+  new Date(batch.start_date).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  })
+}
+
                 </p>
                 <p>
                   <strong>End:</strong>{" "}
-                  {new Date(batch.end_date).toLocaleDateString() || "TBD"}
+                {
+  new Date(batch.end_date).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  })
+}
+
                 </p>
 
                 <p>

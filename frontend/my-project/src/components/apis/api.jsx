@@ -27,6 +27,15 @@ api.interceptors.request.use(
   },
   (error) => {
     getLoadingSetter()?.(false);
+    
+    if (error.response && error.response.status === 401) {
+      // token expired
+      localStorage.removeItem("token");
+
+      // redirect to login
+      window.location.href = "/login";
+    }
+
     return Promise.reject(error);
   }
 );

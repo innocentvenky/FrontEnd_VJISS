@@ -38,7 +38,7 @@ const Courses = () => {
         setCourses(Array.isArray(data) ? data : []);
         
       } catch (err) {
-        setError("Failed to load courses");
+        setError("Login is expired please login again");
       } finally {
         setLoading(false);
       }
