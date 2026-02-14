@@ -131,7 +131,7 @@ const Courses = () => {
                 <button
                   className={`${styles["action-btn"]} ${styles.details}`}
                   onClick={() =>
-                    alert("Please login to view details")
+                    navigate(`/course/${course.course_id}`)
                   }
                 >
                   DETAILS
