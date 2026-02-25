@@ -34,6 +34,7 @@ const Navbar = () => {
         <ul className={styles.navLinks}>
           {[
             ["/", "Home"],
+            ["/services", "Services"],
             ["/courses", "Courses"],
             ["/newbacth", "New Batch"],
             ["/internship", "Internship"],
@@ -78,7 +79,9 @@ const Navbar = () => {
         <div className={styles.mobileMenu}>
           {[
             ["/", "Home"],
-            ["/courses", "Courses"],
+            ["/services", "Services"],
+             ["/courses", "Courses"],
+          
             ["/newbacth", "New Batch"],
             ["/internship", "Internship"],
             ["/jobnotifications", "Job Notifications"],

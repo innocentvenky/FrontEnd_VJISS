@@ -23,7 +23,7 @@ const JobNotifications = React.lazy(() => import("./components/jobNotifications/
 const Trainers = React.lazy(() => import("./components/trainers/about_trainers"));
 const Carousal = React.lazy(() => import("./components/caurosel"));
 const BatchDetails = React.lazy(() => import("./components/newbacths/newbacths"));
-
+const Services = React.lazy(() => import("./components/services/services"));
 /* 🔐 Admin */
 const AdminHome = React.lazy(() => import("./components/Admin/adminHome"));
 const AllUsers = React.lazy(() => import("./components/Admin/allusers"));
@@ -68,7 +68,12 @@ function App() {
 
                 {/* 🔒 PROTECTED */}
                 <Route path="/" element={<HomePage />} />
-
+                  <Route path="/services" element={ 
+                    <Services />
+                  } />
+                  <Route path="/carousal" element={
+                    <Carousal />
+                  } />  
                 <Route path="/courses" element={
                   <Courses />
                 } />
